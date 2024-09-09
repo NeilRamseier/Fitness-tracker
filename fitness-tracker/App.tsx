@@ -2,7 +2,7 @@ import * as React from "react";
 import { Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Icon, PaperProvider } from "react-native-paper";
+import { DefaultTheme, Icon, PaperProvider } from "react-native-paper";
 import HomeScreen from "./components/HomeScreen";
 import SporteinheitScreen from "./components/SporteinheitScreen";
 import KalenderScreen from "./components/KalenderScreen";
@@ -11,9 +11,18 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 
 const Tab = createBottomTabNavigator();
 
+const theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#1A5A41',
+    secondary: '#EAE7E7',
+  },
+};
+
 export default function App() {
   return (
-    <PaperProvider>
+    <PaperProvider theme={theme}>
       <NavigationContainer>
         <Tab.Navigator
           screenOptions={{
