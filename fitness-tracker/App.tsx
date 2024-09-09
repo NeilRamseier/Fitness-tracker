@@ -15,8 +15,8 @@ const theme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    primary: '#1A5A41',
-    secondary: '#EAE7E7',
+    primary: "#1A5A41",
+    secondary: "#EAE7E7",
   },
 };
 
@@ -33,8 +33,21 @@ export default function App() {
             name="Home"
             component={HomeScreen}
             options={{
-              tabBarIcon: ({ color, size }) => (
-                <MaterialCommunityIcons name="home" color={color} size={size} />
+              tabBarStyle: {
+                backgroundColor: theme.colors.primary,
+              },
+              headerStyle: {
+                backgroundColor: theme.colors.primary,
+              },
+              headerTitleStyle: {
+                color: theme.colors.secondary,
+              },
+              tabBarIcon: () => (
+                <MaterialCommunityIcons
+                  name="home"
+                  color={theme.colors.secondary}
+                  size={28}
+                />
               ),
             }}
           />
@@ -42,8 +55,21 @@ export default function App() {
             name="Sporteinheit"
             component={SporteinheitScreen}
             options={{
+              tabBarStyle: {
+                backgroundColor: theme.colors.primary,
+              },
+              headerStyle: {
+                backgroundColor: theme.colors.primary,
+              },
+              headerTitleStyle: {
+                color: theme.colors.secondary,
+              },
               tabBarIcon: ({ color, size }) => (
-                <MaterialCommunityIcons name="plus-circle" color={color} size={size} />
+                <MaterialCommunityIcons
+                  name="plus-circle"
+                  color={theme.colors.secondary}
+                  size={28}
+                />
               ),
             }}
           />
@@ -51,8 +77,21 @@ export default function App() {
             name="Kalender"
             component={KalenderScreen}
             options={{
+              tabBarStyle: {
+                backgroundColor: theme.colors.primary,
+              },
+              headerStyle: {
+                backgroundColor: theme.colors.primary,
+              },
+              headerTitleStyle: {
+                color: theme.colors.secondary,
+              },
               tabBarIcon: ({ color, size }) => (
-                <MaterialCommunityIcons name="calendar" color={color} size={size} />
+                <MaterialCommunityIcons
+                  name="calendar"
+                  color={theme.colors.secondary}
+                  size={28}
+                />
               ),
             }}
           />
@@ -60,8 +99,21 @@ export default function App() {
             name="Profil"
             component={ProfilScreen}
             options={{
+              tabBarStyle: {
+                backgroundColor: theme.colors.primary,
+              },
+              headerStyle: {
+                backgroundColor: theme.colors.primary,
+              },
+              headerTitleStyle: {
+                color: theme.colors.secondary,
+              },
               tabBarIcon: ({ color, size }) => (
-                <MaterialCommunityIcons name="account" color={color} size={size} />
+                <MaterialCommunityIcons
+                  name="account"
+                  color={theme.colors.secondary}
+                  size={28}
+                />
               ),
             }}
           />
