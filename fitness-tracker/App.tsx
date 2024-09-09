@@ -4,10 +4,10 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { DefaultTheme, Icon, PaperProvider } from "react-native-paper";
 import HomeScreen from "./components/HomeScreen";
-import SporteinheitScreen from "./components/SporteinheitScreen";
 import KalenderScreen from "./components/KalenderScreen";
 import ProfilScreen from "./components/ProfilScreen";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import SportsUnitScreen from "./components/SportsUnitScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -52,8 +52,8 @@ export default function App() {
             }}
           />
           <Tab.Screen
-            name="Sporteinheit"
-            component={SporteinheitScreen}
+            name="SportsUnit"
+            component={SportsUnitScreen}
             options={{
               tabBarStyle: {
                 backgroundColor: theme.colors.primary,
@@ -64,6 +64,7 @@ export default function App() {
               headerTitleStyle: {
                 color: theme.colors.secondary,
               },
+              title: "Sporteinheit",
               tabBarIcon: ({ color, size }) => (
                 <MaterialCommunityIcons
                   name="plus-circle"
