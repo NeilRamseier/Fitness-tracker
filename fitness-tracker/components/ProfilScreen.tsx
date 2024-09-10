@@ -29,14 +29,14 @@ export default function ProfilScreen() {
     }
     if (!age) {
       errors.age = 'Alter ist notwendig.';
-    }if (!weight) {
+    } if (!weight) {
       errors.weight = 'Gewicht ist notwendig.';
-    }if (!height) {
+    } if (!height) {
       errors.height = 'Grösse ist notwendig.';
-    }if (!gender) {
+    } if (!gender) {
       errors.gender = 'Geschlecht ist notwendig.';
     }
-    
+
     setErrors(errors);
     setIsFormValid(Object.values(errors).every(error => error === ''));
   };
