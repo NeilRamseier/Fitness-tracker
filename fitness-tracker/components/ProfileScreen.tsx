@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { View, Text, ScrollView } from "react-native";
 import { TextInput, useTheme, Button, RadioButton } from "react-native-paper";
 
-export default function ProfilScreen() {
+export default function ProfileScreen() {
   const theme = useTheme();
   const [name, setName] = React.useState("");
   const [age, setAge] = React.useState("");
@@ -43,8 +43,9 @@ export default function ProfilScreen() {
 
 
   return (
-    <ScrollView>
+    <ScrollView bounces={false} >
       <View style={{ backgroundColor: theme.colors.primary, flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Text style={{ color: theme.colors.secondary, margin: 15 }} >Man kann erst speichern, wenn in jedem Feld ein korrekter Wert angegeben wurde. </Text>
         <Text style={{ color: theme.colors.secondary, fontSize: 25, marginTop: 30 }}>Name</Text>
         <TextInput
           style={{
@@ -58,6 +59,7 @@ export default function ProfilScreen() {
         />
         <Text style={{ color: theme.colors.secondary, fontSize: 25, marginTop: 30 }}>Alter</Text>
         <TextInput
+          keyboardType="numeric"
           style={{
             marginTop: 15,
             width: 182,
@@ -69,6 +71,7 @@ export default function ProfilScreen() {
         />
         <Text style={{ color: theme.colors.secondary, fontSize: 25, marginTop: 30 }}>Gewicht</Text>
         <TextInput
+          keyboardType="numeric"
           style={{
             marginTop: 15,
             width: 182,
@@ -80,6 +83,7 @@ export default function ProfilScreen() {
         />
         <Text style={{ color: theme.colors.secondary, fontSize: 25, marginTop: 30 }}>Grösse</Text>
         <TextInput
+          keyboardType="numeric"
           style={{
             marginTop: 15,
             width: 182,
