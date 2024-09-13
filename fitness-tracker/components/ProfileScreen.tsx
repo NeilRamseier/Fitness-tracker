@@ -31,14 +31,16 @@ export default function ProfileScreen() {
     dropDB();
   }
   const theme = useTheme();
-  const [name, setName] = React.useState("");
+  const [firstName, setFirstName] = React.useState("");
+  const [lastName, setLastName] = React.useState("");
   const [age, setAge] = React.useState("");
   const [weight, setWeight] = React.useState("");
   const [height, setHeight] = React.useState("");
   const [gender, setGender] = React.useState("");
   const [isFormValid, setIsFormValid] = React.useState(false);
   const [errors, setErrors] = React.useState({
-    name: '',
+    firstName: '',
+    lastName: '',
     age: '',
     weight: '',
     height: '',
@@ -46,13 +48,16 @@ export default function ProfileScreen() {
   });
   useEffect(() => {
     validateForm();
-  }, [name, age, weight, height, gender]);
+  }, [firstName, lastName, age, weight, height, gender]);
 
   const validateForm = () => {
-    let errors = { name: '', age: '', weight: '', height: '', gender: '' };
+    let errors = { firstName: '', lastName: '', age: '', weight: '', height: '', gender: '' };
 
-    if (!name) {
-      errors.name = 'Name ist notwendig.';
+    if (!firstName) {
+      errors.firstName = 'Vorname ist notwendig.';
+    }
+    if (!lastName) {
+      errors.firstName = 'Nachname ist notwendig.';
     }
     if (!age) {
       errors.age = 'Alter ist notwendig.';
@@ -68,21 +73,40 @@ export default function ProfileScreen() {
     setIsFormValid(Object.values(errors).every(error => error === ''));
   };
 
+  const calculateBasal = (gender: string, weight: number, age: number, height: number) => {
+    if (gender == "M") {
+      return Math.round(66.47 + (13.7 * weight) + (5 * height) - (6.8 * age));
+    }
+    return Math.round(655.1 + (9.6 * weight) + (1.8 * height) - (4.7 * age));
+  }
 
   return (
     <ScrollView bounces={false} >
       <View style={{ backgroundColor: theme.colors.primary, flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text style={{ color: theme.colors.secondary, margin: 15 }} >Man kann erst speichern, wenn in jedem Feld ein korrekter Wert angegeben wurde. </Text>
-        <Text style={{ color: theme.colors.secondary, fontSize: 25, marginTop: 30 }}>Name</Text>
+        {!isFormValid && (
+          <Text style={{ color: 'red', margin: 15 }} >Man kann erst speichern, wenn in jedem Feld ein korrekter Wert angegeben wurde. </Text>
+        )}
+        <Text style={{ color: theme.colors.secondary, fontSize: 25, marginTop: 30 }}>Vorname</Text>
         <TextInput
           style={{
             marginTop: 15,
             width: 182,
             height: 50
           }}
-          placeholder="Name"
-          value={name}
-          onChangeText={name => setName(name)}
+          placeholder="Vorname"
+          value={firstName}
+          onChangeText={firstName => setFirstName(firstName)}
+        />
+        <Text style={{ color: theme.colors.secondary, fontSize: 25, marginTop: 30 }}>Nachname</Text>
+        <TextInput
+          style={{
+            marginTop: 15,
+            width: 182,
+            height: 50
+          }}
+          placeholder="Nachname"
+          value={lastName}
+          onChangeText={lastName => setLastName(lastName)}
         />
         <Text style={{ color: theme.colors.secondary, fontSize: 25, marginTop: 30 }}>Alter</Text>
         <TextInput
@@ -116,18 +140,18 @@ export default function ProfileScreen() {
             width: 182,
             height: 50
           }}
-          placeholder="Grösse"
+          placeholder="Grösse (cm)"
           value={height}
           onChangeText={height => setHeight(height)}
         />
         <Text style={{ color: theme.colors.secondary, fontSize: 25, marginTop: 30 }}>Geschlecht</Text>
         <View style={{ backgroundColor: theme.colors.secondary, justifyContent: "flex-start", height: 'auto', marginTop: 15 }}>
           <RadioButton.Group onValueChange={gender => setGender(gender)} value={gender} >
-            <RadioButton.Item label="Männlich" value="Männlich" />
-            <RadioButton.Item label="Weiblich" value="Weiblich" />
+            <RadioButton.Item label="Männlich" value="M" />
+            <RadioButton.Item label="Weiblich" value="F" />
           </RadioButton.Group>
         </View>
-        <Button mode="outlined" onPress={() => console.log('Pressed')} textColor={theme.colors.secondary} disabled={!isFormValid} style={{
+        <Button mode="outlined"  onPress={async () => createUser(firstName, lastName, parseFloat(weight), parseInt(height), parseInt(age), await calculateBasal(gender, parseFloat(weight), parseInt(age), parseInt(height)), gender)} textColor={theme.colors.secondary} disabled={!isFormValid} style={{
           borderColor: theme.colors.secondary,
           width: 182,
           height: 50,
@@ -136,8 +160,6 @@ export default function ProfileScreen() {
         }}>
           Speichern
         </Button>
-        <Button onPress={setupDatabase} textColor={theme.colors.secondary}><Text>Create User!</Text></Button>
-        <Button onPress={giveAllUser} textColor={theme.colors.secondary}><Text>Get All User!</Text></Button>
         <Button onPress={deleteAllUsers} textColor={theme.colors.secondary}><Text>Delete All User!</Text></Button>
         <Button onPress={dropDatabase} textColor={theme.colors.secondary}><Text>Drop DB!</Text></Button>
         <Button onPress={currentUsere} textColor={theme.colors.secondary}><Text>look at currentUser</Text></Button>
