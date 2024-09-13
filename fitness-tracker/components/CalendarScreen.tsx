@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import React from "react";
 import { View, Text } from "react-native";
 import { Button, useTheme } from 'react-native-paper';
@@ -20,6 +21,8 @@ export default function CalendarScreen() {
     },
     [setOpen, setDate]
   );
+  const formattedDate = date ? format(date, 'dd.MM.yyyy') : ''; 
+
 
   return (
     <View style={{ backgroundColor: theme.colors.primary, flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -44,7 +47,7 @@ export default function CalendarScreen() {
 
       {date && (
         <Text style={{ marginTop: 20, fontSize: 16, color: theme.colors.secondary }}>
-          Keine Daten an diesem Tag
+          Keine Daten vom {formattedDate}
         </Text>
       )}
     </View>
