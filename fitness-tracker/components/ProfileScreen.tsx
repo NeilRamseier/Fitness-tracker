@@ -42,7 +42,7 @@ export default function ProfileScreen() {
   }, [firstName, lastName, age, weight, height, gender]);
 
   const validateForm = () => {
-    let errors = { firstName: '', lastName:'', age: '', weight: '', height: '', gender: '' };
+    let errors = { firstName: '', lastName: '', age: '', weight: '', height: '', gender: '' };
 
     if (!firstName) {
       errors.firstName = 'Vorname ist notwendig.';
@@ -64,13 +64,19 @@ export default function ProfileScreen() {
     setIsFormValid(Object.values(errors).every(error => error === ''));
   };
 
+  const calculateBasal = (gender: string, weight: number, age: number, height: number) => {
+    if (gender == "Männlich") {
+      return 66.47 + (13.7 * weight) + (5 * height) - (6.8 * age);
+    }
+    return 655.1 + (9.6 * weight) + (1.8 * height) - (4.7 * age);;
+  }
 
   return (
     <ScrollView bounces={false} >
       <View style={{ backgroundColor: theme.colors.primary, flex: 1, justifyContent: "center", alignItems: "center" }}>
         {!isFormValid && (
-        <Text style={{ color: 'red', margin: 15 }} >Man kann erst speichern, wenn in jedem Feld ein korrekter Wert angegeben wurde. </Text>
-      )}
+          <Text style={{ color: 'red', margin: 15 }} >Man kann erst speichern, wenn in jedem Feld ein korrekter Wert angegeben wurde. </Text>
+        )}
         <Text style={{ color: theme.colors.secondary, fontSize: 25, marginTop: 30 }}>Vorname</Text>
         <TextInput
           style={{
@@ -145,7 +151,7 @@ export default function ProfileScreen() {
         }}>
           Speichern
         </Button>
-        <Button onPress={() => createUser(firstName, lastName,parseFloat(weight), parseInt(height),25, gender)} textColor={theme.colors.secondary}><Text>Create User!</Text></Button>
+        <Button onPress={() => createUser(firstName, lastName, parseFloat(weight), parseInt(height), parseInt(age), calculateBasal(gender, parseFloat(weight), parseInt(age), parseInt(height)), gender)} textColor={theme.colors.secondary}><Text>Create User!</Text></Button>
         <Button onPress={deleteAllUsers} textColor={theme.colors.secondary}><Text>Delete All User!</Text></Button>
         <Button onPress={dropDatabase} textColor={theme.colors.secondary}><Text>Drop DB!</Text></Button>
       </View>
