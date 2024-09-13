@@ -68,7 +68,7 @@ export async function getUser(first_name:String) {
       currentUser.last_name = firstRow.last_name;
       currentUser.weight = firstRow.weight;
       currentUser.age = firstRow.age
-      currentUser.basal_metabolic_rate = firstRow.basal_metablic_rate;
+      currentUser.basal_metabolic_rate = firstRow.basal_metabolic_rate;
       currentUser.creation_date = firstRow.creation_date;
 
     
@@ -142,8 +142,8 @@ CREATE TABLE IF NOT EXISTS users (
     weight DECIMAL(5, 2),  
     height DECIMAL(4, 1),  
     age DECIMAL(3, 0),
-basal_metabolic_rate DECIMAL(6, 2),
- gender CHAR(1) CHECK(gender IN ('M', 'F', 'O')) DEFAULT 'O',  
+    basal_metabolic_rate DECIMAL(5, 2),
+    gender CHAR(1) CHECK(gender IN ('M', 'F', 'O')) DEFAULT 'O',  
     creation_date DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 CREATE TABLE IF NOT EXISTS daily_entries (

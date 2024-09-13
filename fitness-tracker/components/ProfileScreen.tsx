@@ -65,10 +65,10 @@ export default function ProfileScreen() {
   };
 
   const calculateBasal = (gender: string, weight: number, age: number, height: number) => {
-    if (gender == "Männlich") {
-      return 66.47 + (13.7 * weight) + (5 * height) - (6.8 * age);
+    if (gender == "M") {
+      return Math.round(66.47 + (13.7 * weight) + (5 * height) - (6.8 * age));
     }
-    return 655.1 + (9.6 * weight) + (1.8 * height) - (4.7 * age);;
+    return Math.round(655.1 + (9.6 * weight) + (1.8 * height) - (4.7 * age));
   }
 
   return (
@@ -138,11 +138,11 @@ export default function ProfileScreen() {
         <Text style={{ color: theme.colors.secondary, fontSize: 25, marginTop: 30 }}>Geschlecht</Text>
         <View style={{ backgroundColor: theme.colors.secondary, justifyContent: "flex-start", height: 'auto', marginTop: 15 }}>
           <RadioButton.Group onValueChange={gender => setGender(gender)} value={gender} >
-            <RadioButton.Item label="Männlich" value="Männlich" />
-            <RadioButton.Item label="Weiblich" value="Weiblich" />
+            <RadioButton.Item label="Männlich" value="M" />
+            <RadioButton.Item label="Weiblich" value="F" />
           </RadioButton.Group>
         </View>
-        <Button mode="outlined"  onPress={() => createUser(firstName, lastName, parseFloat(weight), parseInt(height), parseInt(age), calculateBasal(gender, parseFloat(weight), parseInt(age), parseInt(height)), gender)} textColor={theme.colors.secondary} disabled={!isFormValid} style={{
+        <Button mode="outlined"  onPress={async () => createUser(firstName, lastName, parseFloat(weight), parseInt(height), parseInt(age), await calculateBasal(gender, parseFloat(weight), parseInt(age), parseInt(height)), gender)} textColor={theme.colors.secondary} disabled={!isFormValid} style={{
           borderColor: theme.colors.secondary,
           width: 182,
           height: 50,
