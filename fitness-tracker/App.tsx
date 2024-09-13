@@ -51,7 +51,7 @@ export async function createUser(first_name: string, last_name: string, weight: 
   getUser(first_name);
 
 }
-export async function getUser(first_name:String) {
+export async function getUser(first_name:any) {
   
     const statement = await db.prepareAsync('SELECT * FROM users WHERE first_name = $firstName');
     try {
@@ -78,6 +78,18 @@ export async function getUser(first_name:String) {
     console.error('Fehler beim Abrufen der Benutzer:', error);
     throw error; 
   }
+}
+
+export async function changeUserWeight(newWeight: Double){
+  try {
+    await db.runAsync('UPDATE users SET weight = ? WHERE id = ?', [newWeight, currentUser.id]);
+
+  } catch (error) {
+    console.error('Fehler beim Abrufen der Benutzer:', error);
+    throw error; 
+  }
+  getUser(currentUser.first_name);
+
 }
 
 export async function getAllUser() {

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { ScrollView, Text, View } from "react-native";
 import { Button, RadioButton, TextInput, useTheme } from "react-native-paper";
-import { createUser, deleteAllUser, getAllUser, dropDB } from '../App';
+import { createUser, deleteAllUser, getAllUser, dropDB, currentUser, changeUserWeight } from '../App';
 
 export default function ProfileScreen() {
 
@@ -17,6 +17,15 @@ export default function ProfileScreen() {
   const deleteAllUsers = async () => {
     deleteAllUser();
   }
+
+  const changeWeight = async () => {
+    changeUserWeight(39.5)
+  }
+
+  const currentUsere = async () => {
+    console.log(currentUser.weight);
+  }
+
 
   const dropDatabase = async () => {
     dropDB();
@@ -131,6 +140,8 @@ export default function ProfileScreen() {
         <Button onPress={giveAllUser} textColor={theme.colors.secondary}><Text>Get All User!</Text></Button>
         <Button onPress={deleteAllUsers} textColor={theme.colors.secondary}><Text>Delete All User!</Text></Button>
         <Button onPress={dropDatabase} textColor={theme.colors.secondary}><Text>Drop DB!</Text></Button>
+        <Button onPress={currentUsere} textColor={theme.colors.secondary}><Text>look at currentUser</Text></Button>
+        <Button onPress={changeWeight} textColor={theme.colors.secondary}><Text>changeWeight</Text></Button>
       </View>
     </ScrollView>
   );
