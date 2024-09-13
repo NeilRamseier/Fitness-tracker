@@ -1,11 +1,37 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import * as React from 'react';
 import { useTheme, Surface, Icon } from "react-native-paper";
+import { Pedometer } from "expo-sensors";
 
 export default function HomeScreen() {
 
   const theme = useTheme();
   const [counter, setCounter] = React.useState(0.1);
+  const [isPedometerAvailable, setIsPedometerAvailable] = React.useState('checking');
+  const [stepCount, setStepCount] = React.useState(0);
+
+  const subscribe = async () => {
+    const isAvailable = await Pedometer.isAvailableAsync();
+    setIsPedometerAvailable(String(isAvailable));
+
+    if(isAvailable) {
+      const today = new Date();
+
+      const start = new Date(today);
+      start.setHours(0, 0, 0, 0);
+
+      const end = new Date(today);
+      end.setHours(23, 59, 59, 999);
+
+      const stepCountResult = await Pedometer.getStepCountAsync(start, end);
+      setStepCount(stepCountResult.steps);
+      
+    }
+  };
+
+  React.useEffect(() => {
+    const subscription = subscribe();
+  }, []);
 
   const higherCounter = () => {
     setCounter(counter => counter + 0.1)
@@ -36,7 +62,7 @@ export default function HomeScreen() {
               fontSize:25,
               color: theme.colors.secondary
             }}
-            >11'456 Schritte</Text>
+            >{stepCount} Schritte</Text>
         </Surface>
 
 {/* Kalorienverbrauch anzeigen */}
