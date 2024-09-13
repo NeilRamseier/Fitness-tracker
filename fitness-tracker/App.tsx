@@ -1,3 +1,5 @@
+import * as React from "react";
+import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import * as SQLite from 'expo-sqlite';
@@ -8,9 +10,10 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { Double } from "react-native/Libraries/Types/CodegenTypes";
 import 'setimmediate';
 import HomeScreen from "./components/HomeScreen";
-import KalenderScreen from "./components/KalenderScreen";
-import ProfilScreen from "./components/ProfilScreen";
-import SporteinheitScreen from "./components/SporteinheitScreen";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import SportsUnitScreen from "./components/SportsUnitScreen";
+import CalendarScreen from "./components/CalendarScreen";
+import ProfileScreen from "./components/ProfileScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -139,8 +142,8 @@ CREATE TABLE IF NOT EXISTS daily_entries (
             }}
           />
           <Tab.Screen
-            name="Sporteinheit"
-            component={SporteinheitScreen}
+            name="SportsUnit"
+            component={SportsUnitScreen}
             options={{
               tabBarStyle: {
                 backgroundColor: theme.colors.primary,
@@ -151,7 +154,8 @@ CREATE TABLE IF NOT EXISTS daily_entries (
               headerTitleStyle: {
                 color: theme.colors.secondary,
               },
-              tabBarIcon: ({ color, size }) => (
+              title: "Sporteinheit",
+              tabBarIcon: () => (
                 <MaterialCommunityIcons
                   name="plus-circle"
                   color={theme.colors.secondary}
@@ -162,7 +166,7 @@ CREATE TABLE IF NOT EXISTS daily_entries (
           />
           <Tab.Screen
             name="Kalender"
-            component={KalenderScreen}
+            component={CalendarScreen}
             options={{
               tabBarStyle: {
                 backgroundColor: theme.colors.primary,
@@ -184,7 +188,7 @@ CREATE TABLE IF NOT EXISTS daily_entries (
           />
           <Tab.Screen
             name="Profil"
-            component={ProfilScreen}
+            component={ProfileScreen}
             options={{
               tabBarStyle: {
                 backgroundColor: theme.colors.primary,
@@ -195,7 +199,7 @@ CREATE TABLE IF NOT EXISTS daily_entries (
               headerTitleStyle: {
                 color: theme.colors.secondary,
               },
-              tabBarIcon: ({ color, size }) => (
+              tabBarIcon: () => (
                 <MaterialCommunityIcons
                   name="account"
                   color={theme.colors.secondary}
