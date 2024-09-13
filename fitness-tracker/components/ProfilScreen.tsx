@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Text, View } from "react-native";
-import { createUser, getAllUser } from '../App';
+import { createUser, getAllUser, deleteAllUser } from '../App';
 import { Button } from 'react-native-paper';
 
 
@@ -15,12 +15,16 @@ export default function ProfilScreen() {
     getAllUser();
   }
 
+  const deleteAllUser = async () => {
+    deleteAllUser();
+  }
 
   return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <Text>Profil!</Text>
         <Button onPress={setupDatabase}><Text>Create User!</Text></Button>
         <Button onPress={giveAllUser}><Text>Get All User!</Text></Button>
+        <Button onPress={deleteAllUser}><Text>Delete All User!</Text></Button>
       </View>
   );
   

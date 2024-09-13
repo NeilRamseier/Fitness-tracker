@@ -23,11 +23,11 @@ const theme = {
   },
 };
 
-export let db;
+let db: any;
 
 export async function createUser(first_name: string, last_name: string, weight: Double, height: Number, basal_metabolic_rate: Number, gender: String) {
   try {
-    const result = await db.execAsync(
+    const result = await db.runAsync(
       `INSERT INTO users (first_name, last_name, weight, height, basal_metabolic_rate, gender)
        VALUES (?, ?, ?, ?, ?, ?);`,
       [first_name, last_name, weight, height, basal_metabolic_rate, gender]
@@ -40,10 +40,26 @@ export async function createUser(first_name: string, last_name: string, weight: 
 
 export async function getAllUser() {
   try {
-    const result = await db.execAsync(
+    const result = await db.getAllAsync(
       `SELECT * FROM users;`
     );
-    console.log('Alle Benutzer:', result);
+    for (const row of result) {
+      console.log(row.id, row.first_name);
+    }
+
+  } catch (error) {
+    console.error('Fehler beim Abrufen der Benutzer:', error);
+    throw error; 
+  }
+}
+
+export async function deleteAllUser() {
+  try {
+    await db.runAsync(
+      `DELETE * From users;`
+    );
+
+    console.log('All User are deleted')
 
   } catch (error) {
     console.error('Fehler beim Abrufen der Benutzer:', error);
@@ -79,7 +95,7 @@ CREATE TABLE IF NOT EXISTS daily_entries (
     calories DECIMAL(6, 2),  
     time DECIMAL(5, 2),  
     distance DECIMAL(5, 2),  
-    name VARCHAR(50),  
+    name VARCHAR(50), 
     entry_date DATE DEFAULT CURRENT_DATE,  
     user_id INTEGER,  
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
