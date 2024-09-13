@@ -142,7 +142,7 @@ export default function ProfileScreen() {
             <RadioButton.Item label="Weiblich" value="Weiblich" />
           </RadioButton.Group>
         </View>
-        <Button mode="outlined"  onPress={() => createUser(firstName, lastName, parseFloat(weight), parseInt(height), parseInt(age), calculateBasal(gender, parseFloat(weight), parseInt(age), parseInt(height)), gender)} textColor={theme.colors.secondary} textColor={theme.colors.secondary} disabled={!isFormValid} style={{
+        <Button mode="outlined"  onPress={() => createUser(firstName, lastName, parseFloat(weight), parseInt(height), parseInt(age), calculateBasal(gender, parseFloat(weight), parseInt(age), parseInt(height)), gender)} textColor={theme.colors.secondary} disabled={!isFormValid} style={{
           borderColor: theme.colors.secondary,
           width: 182,
           height: 50,
