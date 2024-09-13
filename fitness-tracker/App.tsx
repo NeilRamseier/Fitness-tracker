@@ -30,18 +30,19 @@ export let currentUser = {
   last_name: String,
   weight: Double,
   height: Number,
+  age: Number,
   basal_metabolic_rate: Number,
   gender: String,
   creation_date: String
 
 }
 
-export async function createUser(first_name: string, last_name: string, weight: Double, height: Number, basal_metabolic_rate: Number, gender: String) {
+export async function createUser(first_name: string, last_name: string, weight: Double, height: Number, age:Number, basal_metabolic_rate: Number, gender: String) {
   try {
     const result = await db.runAsync(
-      `INSERT INTO users (first_name, last_name, weight, height, basal_metabolic_rate, gender)
-       VALUES (?, ?, ?, ?, ?, ?);`,
-      [first_name, last_name, weight, height, basal_metabolic_rate, gender]
+      `INSERT INTO users (first_name, last_name, weight, height, age, basal_metabolic_rate, gender)
+       VALUES (?, ?, ?, ?, ?, ?, ?);`,
+      [first_name, last_name, weight, height, age, basal_metabolic_rate, gender]
     );
     console.log('User erfolgreich eingefügt:', result);
   } catch (error) {
@@ -66,6 +67,7 @@ export async function getUser(first_name:String) {
       currentUser.height = firstRow.height;
       currentUser.last_name = firstRow.last_name;
       currentUser.weight = firstRow.weight;
+      currentUser.age = firstRow.age
       currentUser.basal_metabolic_rate = firstRow.basal_metablic_rate;
       currentUser.creation_date = firstRow.creation_date;
 
@@ -107,6 +109,20 @@ export async function deleteAllUser() {
   }
 }
 
+export async function dropDB() {
+  try {
+    await db.execAsync(
+      `DROP TABLE IF EXISTS users;`
+    );
+
+    console.log('Table is deleted')
+
+  } catch (error) {
+    console.error('Fehler beim deleten des Tabels:', error);
+    throw error; 
+  }
+}
+
 export default function App() {
 
 
@@ -125,6 +141,7 @@ CREATE TABLE IF NOT EXISTS users (
     last_name VARCHAR(50),
     weight DECIMAL(5, 2),  
     height DECIMAL(4, 1),  
+    age DECIMAL(3, 0),
 basal_metabolic_rate DECIMAL(6, 2),
  gender CHAR(1) CHECK(gender IN ('M', 'F', 'O')) DEFAULT 'O',  
     creation_date DATETIME DEFAULT CURRENT_TIMESTAMP

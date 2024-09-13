@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { ScrollView, Text, View } from "react-native";
 import { Button, RadioButton, TextInput, useTheme } from "react-native-paper";
-import { createUser, deleteAllUser, getAllUser } from '../App';
+import { createUser, deleteAllUser, getAllUser, dropDB } from '../App';
 
 export default function ProfileScreen() {
 
   const setupDatabase = async () => {
-    createUser('Test', 'Test', 18.9, 189, 16, 'M');
+    createUser('Test', 'Test', 18.9, 189, 16, 16, 'M');
     console.log('UserCreated')
   }
 
@@ -16,6 +16,10 @@ export default function ProfileScreen() {
 
   const deleteAllUsers = async () => {
     deleteAllUser();
+  }
+
+  const dropDatabase = async () => {
+    dropDB();
   }
   const theme = useTheme();
   const [name, setName] = React.useState("");
@@ -126,6 +130,7 @@ export default function ProfileScreen() {
         <Button onPress={setupDatabase} textColor={theme.colors.secondary}><Text>Create User!</Text></Button>
         <Button onPress={giveAllUser} textColor={theme.colors.secondary}><Text>Get All User!</Text></Button>
         <Button onPress={deleteAllUsers} textColor={theme.colors.secondary}><Text>Delete All User!</Text></Button>
+        <Button onPress={dropDatabase} textColor={theme.colors.secondary}><Text>Drop DB!</Text></Button>
       </View>
     </ScrollView>
   );
