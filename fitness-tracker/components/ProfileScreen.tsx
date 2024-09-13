@@ -23,7 +23,7 @@ export default function ProfileScreen() {
   }
 
   const currentUsere = async () => {
-    console.log(currentUser.weight);
+    console.log(currentUser.IP);
   }
 
 

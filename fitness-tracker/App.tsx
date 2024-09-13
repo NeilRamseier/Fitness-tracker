@@ -33,16 +33,32 @@ export let currentUser = {
   age: Number,
   basal_metabolic_rate: Number,
   gender: String,
+  IP: String,
   creation_date: String
 
 }
 
+let IP:any;
+
+async function getPublicIP(): Promise<void> {
+  try {
+    const response = await fetch('https://api.ipify.org?format=json');
+    const data = await response.json();
+    IP = data.ip;
+    getUserByIP();
+  } catch (error) {
+    console.error('Fehler beim Abrufen der IP-Adresse:', error);
+  }
+}
+
+
+
 export async function createUser(first_name: string, last_name: string, weight: Double, height: Number, age:Number, basal_metabolic_rate: Number, gender: String) {
   try {
     const result = await db.runAsync(
-      `INSERT INTO users (first_name, last_name, weight, height, age, basal_metabolic_rate, gender)
-       VALUES (?, ?, ?, ?, ?, ?, ?);`,
-      [first_name, last_name, weight, height, age, basal_metabolic_rate, gender]
+      `INSERT INTO users (first_name, last_name, weight, height, age, IP, basal_metabolic_rate, gender)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?);`,
+      [first_name, last_name, weight, height, age, IP, basal_metabolic_rate, gender]
     );
     console.log('User erfolgreich eingefügt:', result);
   } catch (error) {
@@ -69,6 +85,7 @@ export async function getUser(first_name:any) {
       currentUser.weight = firstRow.weight;
       currentUser.age = firstRow.age
       currentUser.basal_metabolic_rate = firstRow.basal_metabolic_rate;
+      currentUser.IP = firstRow.IP
       currentUser.creation_date = firstRow.creation_date;
 
     
@@ -78,6 +95,37 @@ export async function getUser(first_name:any) {
     console.error('Fehler beim Abrufen der Benutzer:', error);
     throw error; 
   }
+}
+
+export async function getUserByIP() {
+  const statement = await db.prepareAsync('SELECT * FROM users WHERE IP = $IP');
+
+  try {
+    const result = await statement.executeAsync<{ IP: string }>({
+      $IP: IP,
+    });
+    console.log(result.getFirstAsync.IP)
+    if(result.getFirstAsync === null){
+      console.log('There is no user with this ip')
+    } else {
+      const firstRow = await result.getFirstAsync();
+
+      currentUser.first_name = firstRow.first_name;
+      currentUser.id = firstRow.ID;
+      currentUser.gender = firstRow.gender;
+      currentUser.height = firstRow.height;
+      currentUser.last_name = firstRow.last_name;
+      currentUser.weight = firstRow.weight;
+      currentUser.age = firstRow.age
+      currentUser.basal_metabolic_rate = firstRow.basal_metabolic_rate;
+      currentUser.IP = firstRow.IP
+      currentUser.creation_date = firstRow.creation_date;
+      console.log(currentUser.first_name);
+    }
+} catch (error) {
+  console.error('Fehler beim Abrufen der Benutzer:', error);
+  throw error; 
+}
 }
 
 export async function changeUserWeight(newWeight: Double){
@@ -140,6 +188,7 @@ export default function App() {
 
   useEffect(() => {
     setupDatabase();
+    getPublicIP();
   }, []);
 
   const setupDatabase = async () => {
@@ -154,6 +203,7 @@ CREATE TABLE IF NOT EXISTS users (
     weight DECIMAL(5, 2),  
     height DECIMAL(4, 1),  
     age DECIMAL(3, 0),
+    IP VARCHAR(50),
     basal_metabolic_rate DECIMAL(5, 2),
     gender CHAR(1) CHECK(gender IN ('M', 'F', 'O')) DEFAULT 'O',  
     creation_date DATETIME DEFAULT CURRENT_TIMESTAMP
