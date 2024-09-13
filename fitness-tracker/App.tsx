@@ -1,16 +1,13 @@
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { NavigationContainer } from "@react-navigation/native";
 import * as SQLite from 'expo-sqlite';
-import * as React from "react";
 import { useEffect } from "react";
 import { DefaultTheme, PaperProvider } from "react-native-paper";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { Double } from "react-native/Libraries/Types/CodegenTypes";
 import 'setimmediate';
 import HomeScreen from "./components/HomeScreen";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import SportsUnitScreen from "./components/SportsUnitScreen";
 import CalendarScreen from "./components/CalendarScreen";
 import ProfileScreen from "./components/ProfileScreen";

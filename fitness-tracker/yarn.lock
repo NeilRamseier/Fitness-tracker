@@ -3631,19 +3631,19 @@ expo-modules-core@1.12.24:
   dependencies:
     invariant "^2.2.4"
 
-expo-sqlite@~14.0.6:
-  version "14.0.6"
-  resolved "https://registry.npmjs.org/expo-sqlite/-/expo-sqlite-14.0.6.tgz"
-  integrity sha512-T3YNx7LT7lM4UQRgi8ml+cj0Wf3Ep09+B4CVaWtUCjdyYJIZjsHDT65hypKG+r6btTLLEd11hjlrstNQhzt5gQ==
-  dependencies:
-    "@expo/websql" "^1.0.1"
-
 expo-sensors@~13.0.9:
   version "13.0.9"
   resolved "https://registry.npmjs.org/expo-sensors/-/expo-sensors-13.0.9.tgz"
   integrity sha512-yi/TERUP8dpsJWWRgjT+UuQ7PI604PMndwXh9iBnfNO7q+dtoKZKsVSNJw61IKLNflbtCAyJxgmzPoe/JDT04Q==
   dependencies:
     invariant "^2.2.4"
+
+expo-sqlite@~14.0.6:
+  version "14.0.6"
+  resolved "https://registry.npmjs.org/expo-sqlite/-/expo-sqlite-14.0.6.tgz"
+  integrity sha512-T3YNx7LT7lM4UQRgi8ml+cj0Wf3Ep09+B4CVaWtUCjdyYJIZjsHDT65hypKG+r6btTLLEd11hjlrstNQhzt5gQ==
+  dependencies:
+    "@expo/websql" "^1.0.1"
 
 expo-status-bar@~1.12.1:
   version "1.12.1"

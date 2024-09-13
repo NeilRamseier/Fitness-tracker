@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { View, Text, ScrollView } from "react-native";
-import { TextInput, useTheme, Button, RadioButton } from "react-native-paper";
-import { createUser, getAllUser, deleteAllUser } from '../App';
+import { ScrollView, Text, View } from "react-native";
+import { Button, RadioButton, TextInput, useTheme } from "react-native-paper";
+import { createUser, deleteAllUser, getAllUser } from '../App';
 
 export default function ProfileScreen() {
 
@@ -123,9 +123,9 @@ export default function ProfileScreen() {
         }}>
           Speichern
         </Button>
-        <Button onPress={setupDatabase}><Text>Create User!</Text></Button>
-        <Button onPress={giveAllUser}><Text>Get All User!</Text></Button>
-        <Button onPress={deleteAllUsers}><Text>Delete All User!</Text></Button>
+        <Button onPress={setupDatabase} textColor={theme.colors.secondary}><Text>Create User!</Text></Button>
+        <Button onPress={giveAllUser} textColor={theme.colors.secondary}><Text>Get All User!</Text></Button>
+        <Button onPress={deleteAllUsers} textColor={theme.colors.secondary}><Text>Delete All User!</Text></Button>
       </View>
     </ScrollView>
   );
