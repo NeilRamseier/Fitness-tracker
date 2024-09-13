@@ -1,16 +1,16 @@
-import * as React from "react";
-import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { NavigationContainer } from "@react-navigation/native";
 import * as SQLite from 'expo-sqlite';
+import * as React from "react";
 import { useEffect } from "react";
 import { DefaultTheme, PaperProvider } from "react-native-paper";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { Double } from "react-native/Libraries/Types/CodegenTypes";
 import 'setimmediate';
-import HomeScreen from "./components/HomeScreen";
-import SportsUnitScreen from "./components/SportsUnitScreen";
 import CalendarScreen from "./components/CalendarScreen";
+import HomeScreen from "./components/HomeScreen";
 import ProfileScreen from "./components/ProfileScreen";
+import SportsUnitScreen from "./components/SportsUnitScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -24,6 +24,17 @@ const theme = {
 };
 
 let db: any;
+export let currentUser = {
+  id: Number,
+  first_name: String,
+  last_name: String,
+  weight: Double,
+  height: Number,
+  basal_metabolic_rate: Number,
+  gender: String,
+  creation_date: String
+
+}
 
 export async function createUser(first_name: string, last_name: string, weight: Double, height: Number, basal_metabolic_rate: Number, gender: String) {
   try {
@@ -35,6 +46,35 @@ export async function createUser(first_name: string, last_name: string, weight: 
     console.log('User erfolgreich eingefügt:', result);
   } catch (error) {
     console.error('Fehler beim Einfügen des Users:', error);
+  }
+  getUser(first_name);
+
+}
+export async function getUser(first_name:String) {
+  
+    const statement = await db.prepareAsync('SELECT * FROM users WHERE first_name = $firstName');
+    try {
+      const result = await statement.executeAsync<{ first_name: string }>({
+        $firstName: first_name,
+      });
+
+      const firstRow = await result.getFirstAsync();
+
+      currentUser.first_name = firstRow.first_name;
+      currentUser.id = firstRow.id;
+      currentUser.gender = firstRow.gender;
+      currentUser.height = firstRow.height;
+      currentUser.last_name = firstRow.last_name;
+      currentUser.weight = firstRow.weight;
+      currentUser.basal_metabolic_rate = firstRow.basal_metablic_rate;
+      currentUser.creation_date = firstRow.creation_date;
+
+    
+      console.log(currentUser);      
+
+  } catch (error) {
+    console.error('Fehler beim Abrufen der Benutzer:', error);
+    throw error; 
   }
 }
 
@@ -56,7 +96,7 @@ export async function getAllUser() {
 export async function deleteAllUser() {
   try {
     await db.runAsync(
-      `DELETE * From users;`
+      `DELETE From users;`
     );
 
     console.log('All User are deleted')
