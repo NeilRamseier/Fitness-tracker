@@ -1,4 +1,5 @@
-import { View, Text } from "react-native";
+import * as React from 'react';
+import { Text, View } from "react-native";
 
 export default function KalenderScreen() {
     return (

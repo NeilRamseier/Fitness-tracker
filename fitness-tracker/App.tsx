@@ -1,14 +1,16 @@
-import * as React from "react";
-import 'setimmediate';
-import { Text, View } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { DefaultTheme, Icon, PaperProvider } from "react-native-paper";
+import { NavigationContainer } from "@react-navigation/native";
+import * as SQLite from 'expo-sqlite';
+import * as React from "react";
+import { useEffect } from "react";
+import { DefaultTheme, PaperProvider } from "react-native-paper";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { Double } from "react-native/Libraries/Types/CodegenTypes";
+import 'setimmediate';
 import HomeScreen from "./components/HomeScreen";
-import SporteinheitScreen from "./components/SporteinheitScreen";
 import KalenderScreen from "./components/KalenderScreen";
 import ProfilScreen from "./components/ProfilScreen";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import SporteinheitScreen from "./components/SporteinheitScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -21,7 +23,75 @@ const theme = {
   },
 };
 
+export let db;
+
+export async function createUser(first_name: string, last_name: string, weight: Double, height: Number, basal_metabolic_rate: Number, gender: String) {
+  try {
+    const result = await db.execAsync(
+      `INSERT INTO users (first_name, last_name, weight, height, basal_metabolic_rate, gender)
+       VALUES (?, ?, ?, ?, ?, ?);`,
+      [first_name, last_name, weight, height, basal_metabolic_rate, gender]
+    );
+    console.log('User erfolgreich eingefügt:', result);
+  } catch (error) {
+    console.error('Fehler beim Einfügen des Users:', error);
+  }
+}
+
+export async function getAllUser() {
+  try {
+    const result = await db.execAsync(
+      `SELECT * FROM users;`
+    );
+    console.log('Alle Benutzer:', result);
+
+  } catch (error) {
+    console.error('Fehler beim Abrufen der Benutzer:', error);
+    throw error; 
+  }
+}
+
 export default function App() {
+
+
+  useEffect(() => {
+    setupDatabase();
+  }, []);
+
+  const setupDatabase = async () => {
+    db = await SQLite.openDatabaseAsync("FitnessData");
+    try{
+      await db.execAsync(`
+        PRAGMA journal_mode = WAL;
+CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY NOT NULL,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    weight DECIMAL(5, 2),  
+    height DECIMAL(4, 1),  
+basal_metabolic_rate DECIMAL(6, 2),
+ gender CHAR(1) CHECK(gender IN ('M', 'F', 'O')) DEFAULT 'O',  
+    creation_date DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE IF NOT EXISTS daily_entries (
+    id INTEGER PRIMARY KEY NOT NULL,
+    steps INTEGER,  
+    calories DECIMAL(6, 2),  
+    time DECIMAL(5, 2),  
+    distance DECIMAL(5, 2),  
+    name VARCHAR(50),  
+    entry_date DATE DEFAULT CURRENT_DATE,  
+    user_id INTEGER,  
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+    
+      `)
+      console.log(db)
+    }catch (error) {
+      console.error("Error setting up database:", error);
+    }
+  }
   return (
     <PaperProvider theme={theme}>
       <NavigationContainer>
