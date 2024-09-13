@@ -10,6 +10,8 @@ export default function HomeScreen() {
   const [isPedometerAvailable, setIsPedometerAvailable] = React.useState('checking');
   const [stepCount, setStepCount] = React.useState(0);
 
+  const MIN_COUNT = 0;
+
   const subscribe = async () => {
     const isAvailable = await Pedometer.isAvailableAsync();
     setIsPedometerAvailable(String(isAvailable));
@@ -38,7 +40,7 @@ export default function HomeScreen() {
   }
 
   const lowerCounter = () => {
-    setCounter(counter => counter - 0.1)
+    setCounter(counter => Math.max(counter - 0.1, MIN_COUNT))
   }
 
 
