@@ -18,14 +18,16 @@ export default function ProfileScreen() {
     deleteAllUser();
   }
   const theme = useTheme();
-  const [name, setName] = React.useState("");
+  const [firstName, setFirstName] = React.useState("");
+  const [lastName, setLastName] = React.useState("");
   const [age, setAge] = React.useState("");
   const [weight, setWeight] = React.useState("");
   const [height, setHeight] = React.useState("");
   const [gender, setGender] = React.useState("");
   const [isFormValid, setIsFormValid] = React.useState(false);
   const [errors, setErrors] = React.useState({
-    name: '',
+    firstName: '',
+    lastName: '',
     age: '',
     weight: '',
     height: '',
@@ -33,13 +35,16 @@ export default function ProfileScreen() {
   });
   useEffect(() => {
     validateForm();
-  }, [name, age, weight, height, gender]);
+  }, [firstName, lastName, age, weight, height, gender]);
 
   const validateForm = () => {
-    let errors = { name: '', age: '', weight: '', height: '', gender: '' };
+    let errors = { firstName: '', lastName:'', age: '', weight: '', height: '', gender: '' };
 
-    if (!name) {
-      errors.name = 'Name ist notwendig.';
+    if (!firstName) {
+      errors.firstName = 'Vorname ist notwendig.';
+    }
+    if (!lastName) {
+      errors.firstName = 'Nachname ist notwendig.';
     }
     if (!age) {
       errors.age = 'Alter ist notwendig.';
@@ -59,17 +64,30 @@ export default function ProfileScreen() {
   return (
     <ScrollView bounces={false} >
       <View style={{ backgroundColor: theme.colors.primary, flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text style={{ color: theme.colors.secondary, margin: 15 }} >Man kann erst speichern, wenn in jedem Feld ein korrekter Wert angegeben wurde. </Text>
-        <Text style={{ color: theme.colors.secondary, fontSize: 25, marginTop: 30 }}>Name</Text>
+        {!isFormValid && (
+        <Text style={{ color: 'red', margin: 15 }} >Man kann erst speichern, wenn in jedem Feld ein korrekter Wert angegeben wurde. </Text>
+      )}
+        <Text style={{ color: theme.colors.secondary, fontSize: 25, marginTop: 30 }}>Vorname</Text>
         <TextInput
           style={{
             marginTop: 15,
             width: 182,
             height: 50
           }}
-          placeholder="Name"
-          value={name}
-          onChangeText={name => setName(name)}
+          placeholder="Vorname"
+          value={firstName}
+          onChangeText={firstName => setFirstName(firstName)}
+        />
+        <Text style={{ color: theme.colors.secondary, fontSize: 25, marginTop: 30 }}>Nachname</Text>
+        <TextInput
+          style={{
+            marginTop: 15,
+            width: 182,
+            height: 50
+          }}
+          placeholder="Nachname"
+          value={lastName}
+          onChangeText={lastName => setLastName(lastName)}
         />
         <Text style={{ color: theme.colors.secondary, fontSize: 25, marginTop: 30 }}>Alter</Text>
         <TextInput
@@ -103,7 +121,7 @@ export default function ProfileScreen() {
             width: 182,
             height: 50
           }}
-          placeholder="Grösse"
+          placeholder="Grösse (cm)"
           value={height}
           onChangeText={height => setHeight(height)}
         />
@@ -123,8 +141,7 @@ export default function ProfileScreen() {
         }}>
           Speichern
         </Button>
-        <Button onPress={setupDatabase} textColor={theme.colors.secondary}><Text>Create User!</Text></Button>
-        <Button onPress={giveAllUser} textColor={theme.colors.secondary}><Text>Get All User!</Text></Button>
+        <Button onPress={() => createUser(firstName, lastName,parseFloat(weight), parseInt(height),25, gender)} textColor={theme.colors.secondary}><Text>Create User!</Text></Button>
         <Button onPress={deleteAllUsers} textColor={theme.colors.secondary}><Text>Delete All User!</Text></Button>
       </View>
     </ScrollView>
