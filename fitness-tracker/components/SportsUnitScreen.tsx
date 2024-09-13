@@ -25,7 +25,7 @@ export default function SportsUnitScreen() {
 
   return (
     <View style={{ backgroundColor: theme.colors.primary ,flex: 1, justifyContent: "flex-start", alignItems: "center", }}>
-      <Text style={{ color: theme.colors.secondary, margin: 15 }} >Man kann erst speichern wenn in jedem Feld ein Korrekter Wert angegeben wurde. </Text>
+      <Text style={{ color: theme.colors.secondary, margin: 15 }} >Man kann erst speichern, wenn in jedem Feld ein korrekter Wert angegeben wurde. </Text>
       <Text style={{ color: theme.colors.secondary, fontSize: 25, marginTop: 15 }}>Aktivität</Text>
       <View style={{ backgroundColor: theme.colors.secondary, justifyContent: "flex-start", height: 200, marginTop: 15 }}>
       <RadioButton.Group onValueChange={activityValue => setActivityValue(activityValue)} value={activityValue} >

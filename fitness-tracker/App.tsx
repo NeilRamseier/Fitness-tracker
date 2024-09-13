@@ -1,13 +1,12 @@
 import * as React from "react";
-import { Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { DefaultTheme, Icon, PaperProvider } from "react-native-paper";
 import HomeScreen from "./components/HomeScreen";
-import KalenderScreen from "./components/KalenderScreen";
-import ProfilScreen from "./components/ProfilScreen";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import SportsUnitScreen from "./components/SportsUnitScreen";
+import CalendarScreen from "./components/CalendarScreen";
+import ProfileScreen from "./components/ProfileScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -65,7 +64,7 @@ export default function App() {
                 color: theme.colors.secondary,
               },
               title: "Sporteinheit",
-              tabBarIcon: ({ color, size }) => (
+              tabBarIcon: () => (
                 <MaterialCommunityIcons
                   name="plus-circle"
                   color={theme.colors.secondary}
@@ -76,7 +75,7 @@ export default function App() {
           />
           <Tab.Screen
             name="Kalender"
-            component={KalenderScreen}
+            component={CalendarScreen}
             options={{
               tabBarStyle: {
                 backgroundColor: theme.colors.primary,
@@ -98,7 +97,7 @@ export default function App() {
           />
           <Tab.Screen
             name="Profil"
-            component={ProfilScreen}
+            component={ProfileScreen}
             options={{
               tabBarStyle: {
                 backgroundColor: theme.colors.primary,
@@ -109,7 +108,7 @@ export default function App() {
               headerTitleStyle: {
                 color: theme.colors.secondary,
               },
-              tabBarIcon: ({ color, size }) => (
+              tabBarIcon: () => (
                 <MaterialCommunityIcons
                   name="account"
                   color={theme.colors.secondary}
