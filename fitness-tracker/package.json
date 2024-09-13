@@ -12,6 +12,7 @@
     "@expo/metro-runtime": "~3.2.3",
     "@react-navigation/bottom-tabs": "^6.6.1",
     "@react-navigation/native": "^6.1.18",
+    "date-fns": "^3.6.0",
     "expo": "^51.0.32",
     "expo-sensors": "~13.0.9",
     "expo-status-bar": "~1.12.1",
