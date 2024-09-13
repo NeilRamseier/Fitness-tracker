@@ -142,7 +142,7 @@ export default function ProfileScreen() {
             <RadioButton.Item label="Weiblich" value="Weiblich" />
           </RadioButton.Group>
         </View>
-        <Button mode="outlined" onPress={() => console.log('Pressed')} textColor={theme.colors.secondary} disabled={!isFormValid} style={{
+        <Button mode="outlined"  onPress={() => createUser(firstName, lastName, parseFloat(weight), parseInt(height), parseInt(age), calculateBasal(gender, parseFloat(weight), parseInt(age), parseInt(height)), gender)} textColor={theme.colors.secondary} textColor={theme.colors.secondary} disabled={!isFormValid} style={{
           borderColor: theme.colors.secondary,
           width: 182,
           height: 50,
@@ -151,7 +151,6 @@ export default function ProfileScreen() {
         }}>
           Speichern
         </Button>
-        <Button onPress={() => createUser(firstName, lastName, parseFloat(weight), parseInt(height), parseInt(age), calculateBasal(gender, parseFloat(weight), parseInt(age), parseInt(height)), gender)} textColor={theme.colors.secondary}><Text>Create User!</Text></Button>
         <Button onPress={deleteAllUsers} textColor={theme.colors.secondary}><Text>Delete All User!</Text></Button>
         <Button onPress={dropDatabase} textColor={theme.colors.secondary}><Text>Drop DB!</Text></Button>
       </View>
