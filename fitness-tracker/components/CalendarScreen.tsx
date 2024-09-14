@@ -14,13 +14,11 @@ export default function CalendarScreen() {
     setOpen(false);
   }, [setOpen]);
 
-  const onConfirmSingle = React.useCallback(
-    (params: any) => {
-      setOpen(false);
-      setDate(params.date);
-    },
-    [setOpen, setDate]
-  );
+  const onConfirmSingle = (params: any) => {
+    setOpen(false);
+    setDate(params.date);
+  };
+
   const formattedDate = date ? format(date, 'dd.MM.yyyy') : ''; 
 
 
@@ -32,9 +30,7 @@ export default function CalendarScreen() {
         height: 50,
         marginTop: 50,
         marginBottom: 20
-      }}>
-        Wähle ein Datum aus
-      </Button>
+      }}>Wähle ein Datum aus</Button>
       <DatePickerModal
         presentationStyle="pageSheet"
         locale="de"

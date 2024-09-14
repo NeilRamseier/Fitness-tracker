@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 import { ScrollView, Text, View } from "react-native";
 import { Button, RadioButton, TextInput, useTheme } from "react-native-paper";
-import { createUser, deleteAllUser, getAllUser, dropDB } from '../App';
+import { createUser, deleteAllUser, getAllUser, dropDB, currentUser } from '../App';
 
 export default function ProfileScreen() {
 
   const setupDatabase = async () => {
-    createUser('Test', 'Test', 18.9, 189, 16, 16, 'M');
     console.log('UserCreated')
   }
 
@@ -22,12 +21,12 @@ export default function ProfileScreen() {
     dropDB();
   }
   const theme = useTheme();
-  const [firstName, setFirstName] = React.useState("");
-  const [lastName, setLastName] = React.useState("");
-  const [age, setAge] = React.useState("");
-  const [weight, setWeight] = React.useState("");
-  const [height, setHeight] = React.useState("");
-  const [gender, setGender] = React.useState("");
+  const [firstName, setFirstName] = React.useState(currentUser.first_name ? currentUser.first_name : "");
+  const [lastName, setLastName] = React.useState(currentUser.last_name ? currentUser.last_name : "");
+  const [age, setAge] = React.useState(Number.isNaN(currentUser.age) ? currentUser.age : 0);
+  const [weight, setWeight] = React.useState(Number.isNaN(currentUser.weight) ? currentUser.weight : 0);
+  const [height, setHeight] = React.useState(Number.isNaN(currentUser.height) ? currentUser.height : 0);
+  const [gender, setGender] = React.useState(currentUser.gender ? currentUser.gender : "");
   const [isFormValid, setIsFormValid] = React.useState(false);
   const [errors, setErrors] = React.useState({
     firstName: '',
@@ -108,8 +107,8 @@ export default function ProfileScreen() {
             height: 50
           }}
           placeholder="Alter"
-          value={age}
-          onChangeText={age => setAge(age)}
+          value={age ? age.toString() : ""}
+          onChangeText={age => setAge(parseInt(age))}
         />
         <Text style={{ color: theme.colors.secondary, fontSize: 25, marginTop: 30 }}>Gewicht</Text>
         <TextInput
@@ -132,8 +131,8 @@ export default function ProfileScreen() {
             height: 50
           }}
           placeholder="Grösse (cm)"
-          value={height}
-          onChangeText={height => setHeight(height)}
+          value={height ? height.toString() : ""}
+          onChangeText={height => setHeight(parseInt(height))}
         />
         <Text style={{ color: theme.colors.secondary, fontSize: 25, marginTop: 30 }}>Geschlecht</Text>
         <View style={{ backgroundColor: theme.colors.secondary, justifyContent: "flex-start", height: 'auto', marginTop: 15 }}>
@@ -142,7 +141,7 @@ export default function ProfileScreen() {
             <RadioButton.Item label="Weiblich" value="F" />
           </RadioButton.Group>
         </View>
-        <Button mode="outlined"  onPress={async () => createUser(firstName, lastName, parseFloat(weight), parseInt(height), parseInt(age), await calculateBasal(gender, parseFloat(weight), parseInt(age), parseInt(height)), gender)} textColor={theme.colors.secondary} disabled={!isFormValid} style={{
+        <Button mode="outlined"  onPress={async () => createUser(firstName, lastName, parseFloat(weight), height, age, await calculateBasal(gender, parseFloat(weight), age, height), gender)} textColor={theme.colors.secondary} disabled={!isFormValid} style={{
           borderColor: theme.colors.secondary,
           width: 182,
           height: 50,
