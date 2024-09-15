@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { ScrollView, Text, View } from "react-native";
 import { Button, RadioButton, TextInput, useTheme } from "react-native-paper";
-import { createUser, deleteAllUser, getAllUser, dropDB, currentUser, changeUserWeight } from '../App';
+import { createUser, deleteAllEntrys, getEntryByUser, dropDB, currentUser, changeUserWeight, createDailyEntry } from '../App';
 
 export default function ProfileScreen() {
 
@@ -10,12 +10,19 @@ export default function ProfileScreen() {
     console.log('UserCreated')
   }
 
+  const createEntry = async () => {
+    createDailyEntry(1000, 0, 0, 300, 'walking');
+    console.log('UserCreated')
+  }
+
   const giveAllUser = async () => {
-    getAllUser();
+    getEntryByUser();
+    
   }
 
   const deleteAllUsers = async () => {
-    deleteAllUser();
+    deleteAllEntrys();
+    
   }
 
   const changeWeight = async () => {
@@ -23,7 +30,7 @@ export default function ProfileScreen() {
   }
 
   const currentUsere = async () => {
-    console.log(currentUser.IP);
+    console.log(currentUser.id);
   }
 
 
@@ -160,6 +167,8 @@ export default function ProfileScreen() {
         }}>
           Speichern
         </Button>
+        <Button onPress={createEntry} textColor={theme.colors.secondary}><Text>CreateEntry!</Text></Button>
+        <Button onPress={giveAllUser} textColor={theme.colors.secondary}><Text>giveEtry!</Text></Button>
         <Button onPress={deleteAllUsers} textColor={theme.colors.secondary}><Text>Delete All User!</Text></Button>
         <Button onPress={dropDatabase} textColor={theme.colors.secondary}><Text>Drop DB!</Text></Button>
         <Button onPress={currentUsere} textColor={theme.colors.secondary}><Text>look at currentUser</Text></Button>

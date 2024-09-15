@@ -35,7 +35,17 @@ export let currentUser = {
   gender: String,
   IP: String,
   creation_date: String
+}
 
+export let currentEntry = {
+  id: Number,
+  steps: Number,
+  calories: Number,
+  time: Number,  
+  distance: Number,
+  name: String, 
+  entry_date: String,  
+  user_id: Number,  
 }
 
 let IP:any;
@@ -111,7 +121,7 @@ export async function getUserByIP() {
       const firstRow = await result.getFirstAsync();
 
       currentUser.first_name = firstRow.first_name;
-      currentUser.id = firstRow.ID;
+      currentUser.id = firstRow.id;
       currentUser.gender = firstRow.gender;
       currentUser.height = firstRow.height;
       currentUser.last_name = firstRow.last_name;
@@ -121,6 +131,9 @@ export async function getUserByIP() {
       currentUser.IP = firstRow.IP
       currentUser.creation_date = firstRow.creation_date;
       console.log(currentUser.first_name);
+      if(currentUser.id != null){
+        getEntryByUser()
+      }
     }
 } catch (error) {
   console.error('Fehler beim Abrufen der Benutzer:', error);
@@ -182,6 +195,76 @@ export async function dropDB() {
     throw error; 
   }
 }
+
+export async function createDailyEntry(steps: number, calories: number, time: number, distance: number, name: string) {
+  try {
+    const result = await db.runAsync(
+      `INSERT INTO daily_entries (steps, calories, time, distance, name, user_id)
+       VALUES (?, ?, ?, ?, ?, ?);`,
+      [steps, calories, time, distance, name, currentUser.id]
+    );
+    console.log('Daily entry erfolgreich eingefügt:', result);
+  } catch (error) {
+    console.error('Fehler beim Einfügen des daily_entries:', error);
+  }
+}
+
+export async function getEntryByUser() {
+  try {
+    const statement = await db.prepareAsync('SELECT * FROM daily_entries WHERE user_id = $user_id');
+
+    const result = await statement.executeAsync({ $user_id: currentUser.id });
+
+    const entry = await result.getFirstAsync();
+
+    if (entry) {
+      currentEntry.id = entry.id;
+      currentEntry.steps = entry.steps;
+      currentEntry.calories = entry.calories;
+      currentEntry.distance = entry.distance;
+      currentEntry.time = entry.time;
+      currentEntry.name = entry.name;
+      currentEntry.entry_date = entry.entry_date;
+      currentEntry.user_id = entry.user_id;
+    
+      console.log(currentEntry.steps);
+    } else {
+      console.log('Kein Eintrag gefunden.');
+    }
+  } catch (error) {
+    console.error('Fehler beim Abrufen der Benutzereinträge:', error);
+    throw error;
+  }
+}
+
+
+export async function getAllEntry() {
+  try {
+  const statement = await db.getAllAsync('SELECT * FROM daily_entries');
+
+  for (const row of statement) {
+    console.log(row.id);
+    console.log(currentUser.id);
+  }
+} catch (error) {
+  console.error('Fehler beim Abrufen der Benutzer:', error);
+  throw error; 
+}
+}
+export async function deleteAllEntrys() {
+  try {
+    await db.runAsync(
+      `DELETE From daily_entries;`
+    );
+
+    console.log('All daily entries are deleted')
+
+  } catch (error) {
+    console.error('Fehler beim Abrufen der Benutzer:', error);
+    throw error; 
+  }
+}
+
 
 export default function App() {
 
