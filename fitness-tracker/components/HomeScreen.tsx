@@ -11,6 +11,7 @@ export default function HomeScreen() {
   const [counter, setCounter] = React.useState<number | null>(null); // null, bis Daten geladen sind
   const [isPedometerAvailable, setIsPedometerAvailable] = React.useState('checking');
   const [stepCount, setStepCount] = React.useState(0);
+  const { calories } = useUser();
 
   const MIN_COUNT = 0;
 
@@ -121,14 +122,14 @@ export default function HomeScreen() {
             color: theme.colors.secondary
           }}
         >
-          1'761 kcal
+          {user.basal_metabolic_rate !== null? `${Math.round((calories ?? 0) + (user.basal_metabolic_rate ?? 0))} kcal` : "0"}
         </Text>
         {/* Detailverbrauch */}
         <View>
           <Text style={styles.detailText}>Grundverbrauch</Text>
-          <Text style={styles.detailText}>1'500 kcal</Text>
+          <Text style={styles.detailText}>{user.basal_metabolic_rate} kcal</Text>
           <Text style={styles.detailText}>Aktivitäten</Text>
-          <Text style={styles.detailText}>261 kcal</Text>
+          <Text style={styles.detailText}>{calories !== null ? `${calories.toFixed(2)} kcal` : "0"}</Text>
         </View>
       </Surface>
 
