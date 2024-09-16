@@ -10,7 +10,7 @@ const calculateCalories = (activity: string, distance: number, time: number, wei
 
   const met = getMETForActivity(activity, avgSpeed)
 
-  return met * weightNumber * time;
+  return met * weightNumber * (time / 60);
 }
 const getMETForActivity = (activity: any, avgSpeed: number) =>{
   switch (activity){
@@ -60,7 +60,6 @@ export default function SportsUnitScreen() {
       const calculatedCalories = calculateCalories(activityValue, distanceNumber, timeNumber, weightNumber || 0);
       setCalories(calculatedCalories); //prevCalories => prevCalories + calculatedCalories (zum addieren)
       // Hier kannst du den Wert speichern, z.B. in einem globalen Zustand oder über eine API
-      console.log(`Kalorienverbrauch: ${calculatedCalories}`);
     } else {
       setInputError(true);
     }
