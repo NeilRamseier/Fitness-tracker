@@ -142,7 +142,7 @@ export default function HomeScreen() {
       </Surface>
 
       {/* Gewichtsübersicht */}
-      <TouchableOpacity onPress={higherCounter}>
+      <TouchableOpacity onPress={higherCounter} testID="increase-button">
         <View style={[styles.plusAndMinus, { borderColor: theme.colors.secondary }]}>
           <Icon source="plus" color={theme.colors.secondary} size={50} />
         </View>
@@ -157,7 +157,7 @@ export default function HomeScreen() {
       </View>
       <View style={{ backgroundColor: theme.colors.secondary, height: 1, width: 180, marginBottom: 20 }} />
 
-      <TouchableOpacity onPress={lowerCounter}>
+      <TouchableOpacity onPress={lowerCounter} testID="decrease-button">
         <View style={[styles.plusAndMinus, { borderColor: theme.colors.secondary }]}>
           <Icon source="minus" color={theme.colors.secondary} size={50} />
         </View>

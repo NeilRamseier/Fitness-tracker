@@ -135,7 +135,7 @@ export async function getUserByIP() {
       console.log("IP-log:" + currentUser.first_name);
     }
   } catch (error) {
-    console.error('Fehler beim Abrufen der Benutzer:', error);
+    console.log('Kein User vorhanden');
     throw error;
   }
 }
