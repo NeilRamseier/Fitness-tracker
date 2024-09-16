@@ -69,6 +69,16 @@ useEffect(() => {
     if (!user?.height) formErrors.height = 'Grösse ist notwendig.';
     if (!user?.gender) formErrors.gender = 'Geschlecht ist notwendig.';
 
+
+    setErrors(prevErrors => {
+      const hasChanges = Object.keys(formErrors).some(key => formErrors[key] !== prevErrors[key]);
+      if (hasChanges) {
+        setIsFormValid(Object.values(formErrors).every(error => error === ''));
+        return formErrors;
+      }
+      return prevErrors;
+    });
+
     setErrors(formErrors);
     setIsFormValid(Object.values(formErrors).every(error => error === ''));
   };
@@ -80,7 +90,6 @@ useEffect(() => {
     return Math.round(655.1 + (9.6 * weight) + (1.8 * height) - (4.7 * age));
   };
 
-  // Synchronisation des Gewichts mit dem HomeScreen
   const handleChangeWeight = (newWeight: string) => {
     const parsedWeight = parseFloat(newWeight);
     if (!isNaN(parsedWeight)) {
@@ -186,7 +195,7 @@ useEffect(() => {
           style={{ marginTop: 15, width: 182, height: 50 }}
           placeholder="Gewicht"
           value={user?.weight?.toString() === "0" ? "" : user?.weight?.toString() || ""}
-          onChangeText={(value) => handleChangeWeight(value)} // Auf Gewicht-Synchronisation reagieren
+          onChangeText={(value) => handleChangeWeight(value)}
         />
 
         <Text style={{ color: theme.colors.secondary, fontSize: 25, marginTop: 30 }}>Grösse</Text>
