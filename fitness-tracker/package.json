@@ -6,8 +6,7 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web",
-    "test": "jest"
+    "test": "jest --watchAll"
   },
   "dependencies": {
     "@expo/metro-runtime": "~3.2.3",
@@ -39,6 +38,7 @@
     "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/jest-native": "^5.4.3",
     "@testing-library/react": "^16.0.1",
+    "@babel/preset-typescript": "^7.24.7",
     "@testing-library/react-native": "^12.7.2",
     "@types/react": "~18.2.45",
     "@types/react-native-sqlite-storage": "^6.0.5",
@@ -54,6 +54,7 @@
     "jest-react-native": "^18.0.0",
     "metro-react-native-babel-preset": "^0.77.0",
     "react-test-renderer": "^18.3.1",
+    "jest-expo": "^51.0.4",
     "typescript": "~5.3.3"
   },
   "private": true,

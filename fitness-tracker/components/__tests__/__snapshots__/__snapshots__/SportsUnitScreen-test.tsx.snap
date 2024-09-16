@@ -1,0 +1,1005 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SportsUnitScreen /> should match the snapshot 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "backgroundColor": "rgba(103, 80, 164, 1)",
+      "flex": 1,
+      "justifyContent": "flex-start",
+    }
+  }
+>
+  <Text
+    style={
+      {
+        "color": "rgba(98, 91, 113, 1)",
+        "margin": 15,
+      }
+    }
+  >
+    Man kann erst speichern, wenn in jedem Feld ein korrekter Wert angegeben wurde. 
+  </Text>
+  <Text
+    style={
+      {
+        "color": "rgba(98, 91, 113, 1)",
+        "fontSize": 25,
+        "marginTop": 15,
+      }
+    }
+  >
+    Aktivität
+  </Text>
+  <View
+    style={
+      {
+        "backgroundColor": "rgba(98, 91, 113, 1)",
+        "height": 200,
+        "justifyContent": "flex-start",
+        "marginTop": 15,
+      }
+    }
+  >
+    <View
+      accessibilityRole="radiogroup"
+    >
+      <View
+        accessibilityLabel="Joggen"
+        accessibilityRole="radio"
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": false,
+            "disabled": false,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          [
+            false,
+            undefined,
+          ]
+        }
+      >
+        <View
+          pointerEvents="none"
+          style={
+            [
+              {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "paddingHorizontal": 16,
+                "paddingVertical": 8,
+              },
+              undefined,
+            ]
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "textAlign": "left",
+                },
+                {
+                  "color": "rgba(28, 27, 31, 1)",
+                  "writingDirection": "ltr",
+                },
+                [
+                  {
+                    "fontFamily": "System",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "letterSpacing": 0.15,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "flexGrow": 1,
+                      "flexShrink": 1,
+                    },
+                    false,
+                    {
+                      "color": "rgba(28, 27, 31, 1)",
+                      "textAlign": "left",
+                    },
+                    undefined,
+                  ],
+                ],
+              ]
+            }
+          >
+            Joggen
+          </Text>
+          <View
+            accessibilityLiveRegion="polite"
+            accessibilityRole="radio"
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": false,
+                "disabled": false,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              [
+                {
+                  "overflow": "hidden",
+                },
+                {
+                  "borderRadius": 18,
+                  "padding": 6,
+                },
+              ]
+            }
+          >
+            <View
+              style={
+                {
+                  "opacity": 0,
+                }
+              }
+            >
+              <Text />
+            </View>
+          </View>
+        </View>
+      </View>
+      <View
+        accessibilityLabel="Fahrrad fahren"
+        accessibilityRole="radio"
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": false,
+            "disabled": false,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          [
+            false,
+            undefined,
+          ]
+        }
+      >
+        <View
+          pointerEvents="none"
+          style={
+            [
+              {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "paddingHorizontal": 16,
+                "paddingVertical": 8,
+              },
+              undefined,
+            ]
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "textAlign": "left",
+                },
+                {
+                  "color": "rgba(28, 27, 31, 1)",
+                  "writingDirection": "ltr",
+                },
+                [
+                  {
+                    "fontFamily": "System",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "letterSpacing": 0.15,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "flexGrow": 1,
+                      "flexShrink": 1,
+                    },
+                    false,
+                    {
+                      "color": "rgba(28, 27, 31, 1)",
+                      "textAlign": "left",
+                    },
+                    undefined,
+                  ],
+                ],
+              ]
+            }
+          >
+            Fahrrad fahren
+          </Text>
+          <View
+            accessibilityLiveRegion="polite"
+            accessibilityRole="radio"
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": false,
+                "disabled": false,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              [
+                {
+                  "overflow": "hidden",
+                },
+                {
+                  "borderRadius": 18,
+                  "padding": 6,
+                },
+              ]
+            }
+          >
+            <View
+              style={
+                {
+                  "opacity": 0,
+                }
+              }
+            >
+              <Text />
+            </View>
+          </View>
+        </View>
+      </View>
+      <View
+        accessibilityLabel="Schwimmen"
+        accessibilityRole="radio"
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": false,
+            "disabled": false,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          [
+            false,
+            undefined,
+          ]
+        }
+      >
+        <View
+          pointerEvents="none"
+          style={
+            [
+              {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "paddingHorizontal": 16,
+                "paddingVertical": 8,
+              },
+              undefined,
+            ]
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "textAlign": "left",
+                },
+                {
+                  "color": "rgba(28, 27, 31, 1)",
+                  "writingDirection": "ltr",
+                },
+                [
+                  {
+                    "fontFamily": "System",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "letterSpacing": 0.15,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "flexGrow": 1,
+                      "flexShrink": 1,
+                    },
+                    false,
+                    {
+                      "color": "rgba(28, 27, 31, 1)",
+                      "textAlign": "left",
+                    },
+                    undefined,
+                  ],
+                ],
+              ]
+            }
+          >
+            Schwimmen
+          </Text>
+          <View
+            accessibilityLiveRegion="polite"
+            accessibilityRole="radio"
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": false,
+                "disabled": false,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              [
+                {
+                  "overflow": "hidden",
+                },
+                {
+                  "borderRadius": 18,
+                  "padding": 6,
+                },
+              ]
+            }
+          >
+            <View
+              style={
+                {
+                  "opacity": 0,
+                }
+              }
+            >
+              <Text />
+            </View>
+          </View>
+        </View>
+      </View>
+      <View
+        accessibilityLabel="Gehen"
+        accessibilityRole="radio"
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": false,
+            "disabled": false,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          [
+            false,
+            undefined,
+          ]
+        }
+      >
+        <View
+          pointerEvents="none"
+          style={
+            [
+              {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "paddingHorizontal": 16,
+                "paddingVertical": 8,
+              },
+              undefined,
+            ]
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "textAlign": "left",
+                },
+                {
+                  "color": "rgba(28, 27, 31, 1)",
+                  "writingDirection": "ltr",
+                },
+                [
+                  {
+                    "fontFamily": "System",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "letterSpacing": 0.15,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "flexGrow": 1,
+                      "flexShrink": 1,
+                    },
+                    false,
+                    {
+                      "color": "rgba(28, 27, 31, 1)",
+                      "textAlign": "left",
+                    },
+                    undefined,
+                  ],
+                ],
+              ]
+            }
+          >
+            Gehen
+          </Text>
+          <View
+            accessibilityLiveRegion="polite"
+            accessibilityRole="radio"
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": false,
+                "disabled": false,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              [
+                {
+                  "overflow": "hidden",
+                },
+                {
+                  "borderRadius": 18,
+                  "padding": 6,
+                },
+              ]
+            }
+          >
+            <View
+              style={
+                {
+                  "opacity": 0,
+                }
+              }
+            >
+              <Text />
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+  <Text
+    style={
+      {
+        "color": "rgba(98, 91, 113, 1)",
+        "fontSize": 25,
+        "marginTop": 30,
+      }
+    }
+  >
+    Strecke
+  </Text>
+  <View
+    style={
+      [
+        {
+          "backgroundColor": "rgba(231, 224, 236, 1)",
+          "borderTopLeftRadius": 4,
+          "borderTopRightRadius": 4,
+        },
+        {
+          "marginTop": 15,
+          "width": 182,
+        },
+      ]
+    }
+  >
+    <View
+      collapsable={false}
+      style={
+        {
+          "backgroundColor": "rgba(73, 69, 79, 1)",
+          "bottom": 0,
+          "height": 1,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "transform": [
+            {
+              "scaleY": 0.5,
+            },
+          ],
+          "zIndex": 1,
+        }
+      }
+      testID="text-input-underline"
+    />
+    <View
+      onLayout={[Function]}
+      style={
+        [
+          {
+            "flexGrow": 1,
+            "paddingBottom": 0,
+            "paddingTop": 0,
+          },
+          {
+            "minHeight": 50,
+          },
+        ]
+      }
+    >
+      <TextInput
+        cursorColor="rgba(103, 80, 164, 1)"
+        editable={true}
+        maxFontSizeMultiplier={1.5}
+        multiline={false}
+        onBlur={[Function]}
+        onChangeText={[Function]}
+        onFocus={[Function]}
+        placeholder="Km"
+        placeholderTextColor="rgba(73, 69, 79, 1)"
+        selectionColor="rgba(103, 80, 164, 1)"
+        style={
+          [
+            {
+              "flexGrow": 1,
+              "margin": 0,
+            },
+            {},
+            {
+              "paddingBottom": 0,
+              "paddingTop": 0,
+            },
+            {
+              "color": "rgba(28, 27, 31, 1)",
+              "fontFamily": "System",
+              "fontSize": 16,
+              "fontWeight": undefined,
+              "letterSpacing": 0.15,
+              "lineHeight": undefined,
+              "minWidth": 65,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "textAlign": "left",
+              "textAlignVertical": "center",
+            },
+            false,
+            [
+              {},
+            ],
+            undefined,
+          ]
+        }
+        testID="text-input-flat"
+        underlineColorAndroid="transparent"
+        value=""
+      />
+    </View>
+  </View>
+  <Text
+    style={
+      {
+        "color": "rgba(98, 91, 113, 1)",
+        "fontSize": 25,
+        "marginTop": 30,
+      }
+    }
+  >
+    Dauer
+  </Text>
+  <View
+    style={
+      [
+        {
+          "backgroundColor": "rgba(231, 224, 236, 1)",
+          "borderTopLeftRadius": 4,
+          "borderTopRightRadius": 4,
+        },
+        {
+          "marginTop": 15,
+          "width": 182,
+        },
+      ]
+    }
+  >
+    <View
+      collapsable={false}
+      style={
+        {
+          "backgroundColor": "rgba(73, 69, 79, 1)",
+          "bottom": 0,
+          "height": 1,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "transform": [
+            {
+              "scaleY": 0.5,
+            },
+          ],
+          "zIndex": 1,
+        }
+      }
+      testID="text-input-underline"
+    />
+    <View
+      onLayout={[Function]}
+      style={
+        [
+          {
+            "flexGrow": 1,
+            "paddingBottom": 0,
+            "paddingTop": 0,
+          },
+          {
+            "minHeight": 50,
+          },
+        ]
+      }
+    >
+      <TextInput
+        cursorColor="rgba(103, 80, 164, 1)"
+        editable={true}
+        maxFontSizeMultiplier={1.5}
+        multiline={false}
+        onBlur={[Function]}
+        onChangeText={[Function]}
+        onFocus={[Function]}
+        placeholder="min"
+        placeholderTextColor="rgba(73, 69, 79, 1)"
+        selectionColor="rgba(103, 80, 164, 1)"
+        style={
+          [
+            {
+              "flexGrow": 1,
+              "margin": 0,
+            },
+            {},
+            {
+              "paddingBottom": 0,
+              "paddingTop": 0,
+            },
+            {
+              "color": "rgba(28, 27, 31, 1)",
+              "fontFamily": "System",
+              "fontSize": 16,
+              "fontWeight": undefined,
+              "letterSpacing": 0.15,
+              "lineHeight": undefined,
+              "minWidth": 65,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "textAlign": "left",
+              "textAlignVertical": "center",
+            },
+            false,
+            [
+              {},
+            ],
+            undefined,
+          ]
+        }
+        testID="text-input-flat"
+        underlineColorAndroid="transparent"
+        value=""
+      />
+    </View>
+  </View>
+  <View
+    collapsable={false}
+    style={
+      {
+        "backgroundColor": "rgba(103, 80, 164, 1)",
+        "borderRadius": 20,
+        "height": 50,
+        "marginTop": 30,
+        "shadowColor": "#000",
+        "shadowOffset": {
+          "height": 0,
+          "width": 0,
+        },
+        "shadowOpacity": 0,
+        "shadowRadius": 0,
+        "width": 182,
+      }
+    }
+    testID="button-container-outer-layer"
+  >
+    <View
+      collapsable={false}
+      style={
+        {
+          "backgroundColor": "rgba(103, 80, 164, 1)",
+          "borderColor": "rgba(98, 91, 113, 1)",
+          "borderRadius": 20,
+          "borderStyle": "solid",
+          "borderWidth": 1,
+          "flex": 1,
+          "justifyContent": "center",
+          "minWidth": 64,
+          "shadowColor": "#000",
+          "shadowOffset": {
+            "height": 0,
+            "width": 0,
+          },
+          "shadowOpacity": 0,
+          "shadowRadius": 0,
+        }
+      }
+      testID="button-container"
+    >
+      <View
+        accessibilityRole="button"
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": false,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          [
+            {
+              "overflow": "hidden",
+            },
+            {
+              "borderRadius": 20,
+            },
+          ]
+        }
+        testID="button"
+      >
+        <View
+          style={
+            [
+              {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "justifyContent": "center",
+              },
+              undefined,
+            ]
+          }
+        >
+          <Text
+            numberOfLines={1}
+            selectable={false}
+            style={
+              [
+                {
+                  "textAlign": "left",
+                },
+                {
+                  "color": "rgba(28, 27, 31, 1)",
+                  "writingDirection": "ltr",
+                },
+                [
+                  {
+                    "fontFamily": "System",
+                    "fontSize": 14,
+                    "fontWeight": "500",
+                    "letterSpacing": 0.1,
+                    "lineHeight": 20,
+                  },
+                  [
+                    {
+                      "marginHorizontal": 16,
+                      "marginVertical": 9,
+                      "textAlign": "center",
+                    },
+                    false,
+                    {
+                      "marginHorizontal": 24,
+                      "marginVertical": 10,
+                    },
+                    undefined,
+                    false,
+                    {
+                      "color": "rgba(255, 255, 255, 1)",
+                      "fontFamily": "System",
+                      "fontSize": 14,
+                      "fontWeight": "500",
+                      "letterSpacing": 0.1,
+                      "lineHeight": 20,
+                    },
+                    undefined,
+                  ],
+                ],
+              ]
+            }
+            testID="button-text"
+          >
+            Speichern
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
