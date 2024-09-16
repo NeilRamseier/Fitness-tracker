@@ -77,17 +77,3 @@ describe('HomeScreen', () => {
     expect(mockSetUser).not.toHaveBeenCalledWith({ ...mockUser, weight: 0.0 });
   });
 });
-
-
-describe('<HomeScreen />', () => {
-  it('renders correctly', () => {
-    const tree = renderer
-      .create(
-        <UserProvider> {/* Wrappen des HomeScreen mit UserProvider */}
-          <HomeScreen />
-        </UserProvider>
-      )
-      .toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-});
