@@ -55,8 +55,11 @@ export default function HomeScreen() {
 
   // Erhöhe das Gewicht
   const higherCounter = () => {
+    console.log("Counter", counter, typeof counter);
+    
     if (counter !== null) {
       const newWeight = Math.max(Math.round((counter + 0.1) * 10) / 10, 0.1);
+      console.log("Counter2", newWeight, typeof newWeight);
       setCounter(newWeight);
       changeUserWeight(newWeight);
       if (user) {
@@ -130,7 +133,7 @@ export default function HomeScreen() {
             color: theme.colors.secondary
           }}
         >
-           {localBasal !== null ? `${Math.round((calories ?? 0) + (localBasal ?? 0) + (stepCount * 0.04))} kcal` : "0"}
+           {Math.round((calories ?? 0) + (localBasal ?? 0) + (stepCount * 0.04))} kcal
         </Text>
         {/* Detailverbrauch */}
         <View>
