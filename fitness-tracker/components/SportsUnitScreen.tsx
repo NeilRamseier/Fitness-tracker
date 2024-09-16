@@ -58,7 +58,7 @@ export default function SportsUnitScreen() {
       setInputError(false);
       // Berechnung des Kalorienverbrauchs
       const calculatedCalories = calculateCalories(activityValue, distanceNumber, timeNumber, weightNumber || 0);
-      setCalories(calculatedCalories); //prevCalories => prevCalories + calculatedCalories (zum addieren)
+      setCalories(prevCalories => prevCalories + calculatedCalories); //prevCalories => prevCalories + calculatedCalories (zum addieren)
       // Hier kannst du den Wert speichern, z.B. in einem globalen Zustand oder über eine API
     } else {
       setInputError(true);
