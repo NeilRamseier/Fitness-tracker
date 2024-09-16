@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Platform, PermissionsAndroid } from "react-native";
 import * as React from 'react';
 import { useTheme, Surface, Icon } from "react-native-paper";
 import { Pedometer } from "expo-sensors";
@@ -24,8 +24,8 @@ export default function HomeScreen() {
     }
   }, [user]); // Aktiviere, wenn sich currentUser ändert
 
-  // Pedometermessung initialisieren
-  const subscribe = async () => {
+
+  const getDailySteps = async () => {
     const isAvailable = await Pedometer.isAvailableAsync();
     setIsPedometerAvailable(String(isAvailable));
 
@@ -36,13 +36,43 @@ export default function HomeScreen() {
       const end = new Date(today);
       end.setHours(23, 59, 59, 999);
 
-      const stepCountResult = await Pedometer.getStepCountAsync(start, end);
-      setStepCount(stepCountResult.steps);
+      try {
+        const result = await Pedometer.getStepCountAsync(start, end);
+        setStepCount(result.steps);
+      } catch (error) {
+        console.error("Fehler beim Abrufen der Schritte", error);
+      }
     }
   };
 
   React.useEffect(() => {
-    const subscription = subscribe();
+    const requestPermission = async () => {
+      if (Platform.OS === 'android' && Platform.Version >= 29) {
+        const permission = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.ACTIVITY_RECOGNITION
+        );
+
+        if (permission !== PermissionsAndroid.RESULTS.GRANTED) {
+          console.log('ACTIVITY_RECOGNITION permission denied');
+          return;
+        }
+      }
+    };
+
+    
+    requestPermission();
+    getDailySteps();
+
+    const subscription = Pedometer.watchStepCount(result => {
+      setStepCount(prevCount => prevCount + result.steps);
+    });
+
+    // Abo aufheben, wenn die Komponente unmounted wird
+    return () => {
+      if (subscription) {
+        subscription.remove();
+      }
+    };
   }, []);
 
   // Erhöhe das Gewicht
