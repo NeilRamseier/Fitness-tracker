@@ -56,10 +56,8 @@ export default function SportsUnitScreen() {
 
     if (!isNaN(distanceNumber) && !isNaN(timeNumber) && activityValue !== "") {
       setInputError(false);
-      // Berechnung des Kalorienverbrauchs
       const calculatedCalories = calculateCalories(activityValue, distanceNumber, timeNumber, weightNumber || 0);
-      setCalories(prevCalories => prevCalories + calculatedCalories); //prevCalories => prevCalories + calculatedCalories (zum addieren)
-      // Hier kannst du den Wert speichern, z.B. in einem globalen Zustand oder über eine API
+      setCalories(prevCalories => prevCalories + calculatedCalories);
     } else {
       setInputError(true);
     }
@@ -99,7 +97,7 @@ export default function SportsUnitScreen() {
       value={time}
       onChangeText={time => setTime(time)}
     />
-    {/* Der Button muss onPress() noch modifiziert werden. */}
+
     <Button mode="contained" onPress={handleSave} style= {{
       justifyContent: "center",
       borderWidth: 1,

@@ -25,8 +25,6 @@ describe('<SportsUnitScreen />', () => {
     fireEvent.changeText(getByPlaceholderText('min'), '20');
     fireEvent.press(getByText('Speichern'));
 
-    // Jogging at avg speed = 5 km / (20 min / 60) = -> MET = 11.5
-    // Calories = MET * weight (70 kg) * time in hours (20 min / 60) = 11.5 * 70 * (20 / 60) = 268 kcal
     const expectedCalories = 11.5 * 70 * (20 / 60);
 
     expect(useUser().setCalories).toHaveBeenCalledWith(expectedCalories);

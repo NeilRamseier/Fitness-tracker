@@ -5,7 +5,6 @@ import * as App from '../../App';
 import React from 'react';
 
 jest.useFakeTimers();
-// Mock functions and values
 jest.mock('../../App', () => ({
   createUser: jest.fn(),
   currentUser: null,

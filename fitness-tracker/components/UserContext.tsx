@@ -18,8 +18,8 @@ interface UserContextType {
   setUser: React.Dispatch<React.SetStateAction<User>>;
   calories: number | null;
   setCalories: React.Dispatch<React.SetStateAction<number | null>>;
-  basal: number | null;  // Add basal state
-  setBasal: React.Dispatch<React.SetStateAction<number | null>>;  // Add setBasal function
+  basal: number | null;
+  setBasal: React.Dispatch<React.SetStateAction<number | null>>;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -27,7 +27,7 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User>({});
   const [calories, setCalories] = useState<number | null>(null);
-  const [basal, setBasal] = useState<number | null>(null);  // Add state for basal
+  const [basal, setBasal] = useState<number | null>(null);
 
   return (
     <UserContext.Provider value={{ user, setUser, calories, setCalories, basal, setBasal }}>
