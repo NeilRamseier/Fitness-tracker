@@ -11,6 +11,7 @@ import CalendarScreen from "./components/CalendarScreen";
 import HomeScreen from "./components/HomeScreen";
 import ProfileScreen from "./components/ProfileScreen";
 import SportsUnitScreen from "./components/SportsUnitScreen";
+import { UserProvider } from "./components/UserContext";
 
 const Tab = createBottomTabNavigator();
 
@@ -25,30 +26,31 @@ const theme = {
 
 let db: any;
 export let currentUser = {
-  id: Number,
-  first_name: String,
-  last_name: String,
-  weight: Double,
-  height: Number,
-  age: Number,
-  basal_metabolic_rate: Number,
-  gender: String,
-  IP: String,
-  creation_date: String
-}
+  id: 0,
+  first_name: "",
+  last_name: "",
+  weight: null,
+  height: null,
+  age: null,
+  basal_metabolic_rate: null,
+  gender: "",
+  IP: "",
+  creation_date: ""
+};
 
 export let currentEntry = {
-  id: Number,
-  steps: Number,
-  calories: Number,
-  time: Number,  
-  distance: Number,
-  name: String, 
-  entry_date: String,  
-  user_id: Number,  
-}
+  id: null,
+  steps: null,
+  calories: null,
+  time: null,
+  distance: null,
+  name: "",
+  entry_date: "",
+  user_id: null
+};
 
-let IP:any;
+
+let IP: any;
 
 async function getPublicIP(): Promise<void> {
   try {
@@ -63,7 +65,7 @@ async function getPublicIP(): Promise<void> {
 
 
 
-export async function createUser(first_name: string, last_name: string, weight: Double, height: Number, age:Number, basal_metabolic_rate: Number, gender: String) {
+export async function createUser(first_name: string, last_name: string, weight: Double, height: Number, age: Number, basal_metabolic_rate: Number, gender: String) {
   try {
     const result = await db.runAsync(
       `INSERT INTO users (first_name, last_name, weight, height, age, IP, basal_metabolic_rate, gender)
@@ -77,33 +79,33 @@ export async function createUser(first_name: string, last_name: string, weight: 
   getUser(first_name);
 
 }
-export async function getUser(first_name:any) {
-  
-    const statement = await db.prepareAsync('SELECT * FROM users WHERE first_name = $firstName');
-    try {
-      const result = await statement.executeAsync<{ first_name: string }>({
-        $firstName: first_name,
-      });
+export async function getUser(first_name: any) {
 
-      const firstRow = await result.getFirstAsync();
+  const statement = await db.prepareAsync('SELECT * FROM users WHERE first_name = $firstName');
+  try {
+    const result = await statement.executeAsync<{ first_name: string }>({
+      $firstName: first_name,
+    });
 
-      currentUser.first_name = firstRow.first_name;
-      currentUser.id = firstRow.id;
-      currentUser.gender = firstRow.gender;
-      currentUser.height = firstRow.height;
-      currentUser.last_name = firstRow.last_name;
-      currentUser.weight = firstRow.weight;
-      currentUser.age = firstRow.age
-      currentUser.basal_metabolic_rate = firstRow.basal_metabolic_rate;
-      currentUser.IP = firstRow.IP
-      currentUser.creation_date = firstRow.creation_date;
+    const firstRow = await result.getFirstAsync();
+    currentUser = {
+      ...firstRow,
+      id: firstRow.id,
+      gender: firstRow.gender,
+      height: firstRow.height,
+      weight: firstRow.weight,
+      age: firstRow.age,
+      basal_metabolic_rate: firstRow.basal_metabolic_rate,
+      IP: firstRow.IP,
+      creation_date: firstRow.creation_date
+    };
 
-    
-      console.log(currentUser);      
+
+    console.log(currentUser);
 
   } catch (error) {
     console.error('Fehler beim Abrufen der Benutzer:', error);
-    throw error; 
+    throw error;
   }
 }
 
@@ -115,13 +117,13 @@ export async function getUserByIP() {
       $IP: IP,
     });
     console.log(result.getFirstAsync.IP)
-    if(result.getFirstAsync === null){
+    if (result.getFirstAsync === null) {
       console.log('There is no user with this ip')
     } else {
       const firstRow = await result.getFirstAsync();
 
       currentUser.first_name = firstRow.first_name;
-      currentUser.id = firstRow.id;
+      currentUser.id = firstRow.ID;
       currentUser.gender = firstRow.gender;
       currentUser.height = firstRow.height;
       currentUser.last_name = firstRow.last_name;
@@ -130,24 +132,21 @@ export async function getUserByIP() {
       currentUser.basal_metabolic_rate = firstRow.basal_metabolic_rate;
       currentUser.IP = firstRow.IP
       currentUser.creation_date = firstRow.creation_date;
-      console.log(currentUser.first_name);
-      if(currentUser.id != null){
-        getEntryByUser()
-      }
+      console.log("IP-log:" + currentUser.first_name);
     }
-} catch (error) {
-  console.error('Fehler beim Abrufen der Benutzer:', error);
-  throw error; 
-}
+  } catch (error) {
+    console.error('Fehler beim Abrufen der Benutzer:', error);
+    throw error;
+  }
 }
 
-export async function changeUserWeight(newWeight: Double){
+export async function changeUserWeight(newWeight: Double) {
   try {
     await db.runAsync('UPDATE users SET weight = ? WHERE id = ?', [newWeight, currentUser.id]);
 
   } catch (error) {
     console.error('Fehler beim Abrufen der Benutzer:', error);
-    throw error; 
+    throw error;
   }
   getUser(currentUser.first_name);
 
@@ -164,7 +163,7 @@ export async function getAllUser() {
 
   } catch (error) {
     console.error('Fehler beim Abrufen der Benutzer:', error);
-    throw error; 
+    throw error;
   }
 }
 
@@ -178,7 +177,7 @@ export async function deleteAllUser() {
 
   } catch (error) {
     console.error('Fehler beim Abrufen der Benutzer:', error);
-    throw error; 
+    throw error;
   }
 }
 
@@ -192,7 +191,7 @@ export async function dropDB() {
 
   } catch (error) {
     console.error('Fehler beim deleten des Tabels:', error);
-    throw error; 
+    throw error;
   }
 }
 
@@ -226,7 +225,7 @@ export async function getEntryByUser() {
       currentEntry.name = entry.name;
       currentEntry.entry_date = entry.entry_date;
       currentEntry.user_id = entry.user_id;
-    
+
       console.log(currentEntry.steps);
     } else {
       console.log('Kein Eintrag gefunden.');
@@ -240,16 +239,16 @@ export async function getEntryByUser() {
 
 export async function getAllEntry() {
   try {
-  const statement = await db.getAllAsync('SELECT * FROM daily_entries');
+    const statement = await db.getAllAsync('SELECT * FROM daily_entries');
 
-  for (const row of statement) {
-    console.log(row.id);
-    console.log(currentUser.id);
+    for (const row of statement) {
+      console.log(row.id);
+      console.log(currentUser.id);
+    }
+  } catch (error) {
+    console.error('Fehler beim Abrufen der Benutzer:', error);
+    throw error;
   }
-} catch (error) {
-  console.error('Fehler beim Abrufen der Benutzer:', error);
-  throw error; 
-}
 }
 export async function deleteAllEntrys() {
   try {
@@ -261,7 +260,7 @@ export async function deleteAllEntrys() {
 
   } catch (error) {
     console.error('Fehler beim Abrufen der Benutzer:', error);
-    throw error; 
+    throw error;
   }
 }
 
@@ -276,7 +275,7 @@ export default function App() {
 
   const setupDatabase = async () => {
     db = await SQLite.openDatabaseAsync("FitnessData");
-    try{
+    try {
       await db.execAsync(`
         PRAGMA journal_mode = WAL;
 CREATE TABLE IF NOT EXISTS users (
@@ -306,109 +305,111 @@ CREATE TABLE IF NOT EXISTS daily_entries (
     
       `)
       console.log(db)
-    }catch (error) {
+    } catch (error) {
       console.error("Error setting up database:", error);
     }
   }
   return (
     <PaperProvider theme={theme}>
-      <NavigationContainer>
-        <Tab.Navigator
-          screenOptions={{
-            tabBarShowLabel: false,
-          }}
-        >
-          <Tab.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{
-              tabBarStyle: {
-                backgroundColor: theme.colors.primary,
-              },
-              headerStyle: {
-                backgroundColor: theme.colors.primary,
-              },
-              headerTitleStyle: {
-                color: theme.colors.secondary,
-              },
-              tabBarIcon: () => (
-                <MaterialCommunityIcons
-                  name="home"
-                  color={theme.colors.secondary}
-                  size={28}
-                />
-              ),
+      <UserProvider>
+        <NavigationContainer>
+          <Tab.Navigator
+            screenOptions={{
+              tabBarShowLabel: false,
             }}
-          />
-          <Tab.Screen
-            name="SportsUnit"
-            component={SportsUnitScreen}
-            options={{
-              tabBarStyle: {
-                backgroundColor: theme.colors.primary,
-              },
-              headerStyle: {
-                backgroundColor: theme.colors.primary,
-              },
-              headerTitleStyle: {
-                color: theme.colors.secondary,
-              },
-              title: "Sporteinheit",
-              tabBarIcon: () => (
-                <MaterialCommunityIcons
-                  name="plus-circle"
-                  color={theme.colors.secondary}
-                  size={28}
-                />
-              ),
-            }}
-          />
-          <Tab.Screen
-            name="Kalender"
-            component={CalendarScreen}
-            options={{
-              tabBarStyle: {
-                backgroundColor: theme.colors.primary,
-              },
-              headerStyle: {
-                backgroundColor: theme.colors.primary,
-              },
-              headerTitleStyle: {
-                color: theme.colors.secondary,
-              },
-              tabBarIcon: ({ color, size }) => (
-                <MaterialCommunityIcons
-                  name="calendar"
-                  color={theme.colors.secondary}
-                  size={28}
-                />
-              ),
-            }}
-          />
-          <Tab.Screen
-            name="Profil"
-            component={ProfileScreen}
-            options={{
-              tabBarStyle: {
-                backgroundColor: theme.colors.primary,
-              },
-              headerStyle: {
-                backgroundColor: theme.colors.primary,
-              },
-              headerTitleStyle: {
-                color: theme.colors.secondary,
-              },
-              tabBarIcon: () => (
-                <MaterialCommunityIcons
-                  name="account"
-                  color={theme.colors.secondary}
-                  size={28}
-                />
-              ),
-            }}
-          />
-        </Tab.Navigator>
-      </NavigationContainer>
+          >
+            <Tab.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{
+                tabBarStyle: {
+                  backgroundColor: theme.colors.primary,
+                },
+                headerStyle: {
+                  backgroundColor: theme.colors.primary,
+                },
+                headerTitleStyle: {
+                  color: theme.colors.secondary,
+                },
+                tabBarIcon: () => (
+                  <MaterialCommunityIcons
+                    name="home"
+                    color={theme.colors.secondary}
+                    size={28}
+                  />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="SportsUnit"
+              component={SportsUnitScreen}
+              options={{
+                tabBarStyle: {
+                  backgroundColor: theme.colors.primary,
+                },
+                headerStyle: {
+                  backgroundColor: theme.colors.primary,
+                },
+                headerTitleStyle: {
+                  color: theme.colors.secondary,
+                },
+                title: "Sporteinheit",
+                tabBarIcon: () => (
+                  <MaterialCommunityIcons
+                    name="plus-circle"
+                    color={theme.colors.secondary}
+                    size={28}
+                  />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Kalender"
+              component={CalendarScreen}
+              options={{
+                tabBarStyle: {
+                  backgroundColor: theme.colors.primary,
+                },
+                headerStyle: {
+                  backgroundColor: theme.colors.primary,
+                },
+                headerTitleStyle: {
+                  color: theme.colors.secondary,
+                },
+                tabBarIcon: ({ color, size }) => (
+                  <MaterialCommunityIcons
+                    name="calendar"
+                    color={theme.colors.secondary}
+                    size={28}
+                  />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Profil"
+              component={ProfileScreen}
+              options={{
+                tabBarStyle: {
+                  backgroundColor: theme.colors.primary,
+                },
+                headerStyle: {
+                  backgroundColor: theme.colors.primary,
+                },
+                headerTitleStyle: {
+                  color: theme.colors.secondary,
+                },
+                tabBarIcon: () => (
+                  <MaterialCommunityIcons
+                    name="account"
+                    color={theme.colors.secondary}
+                    size={28}
+                  />
+                ),
+              }}
+            />
+          </Tab.Navigator>
+        </NavigationContainer>
+      </UserProvider>
     </PaperProvider>
   );
 }
