@@ -1,5 +1,3 @@
-// UserContext.tsx
-
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 interface User {
@@ -20,6 +18,8 @@ interface UserContextType {
   setUser: React.Dispatch<React.SetStateAction<User>>;
   calories: number | null;
   setCalories: React.Dispatch<React.SetStateAction<number | null>>;
+  basal: number | null;  // Add basal state
+  setBasal: React.Dispatch<React.SetStateAction<number | null>>;  // Add setBasal function
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -27,9 +27,10 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User>({});
   const [calories, setCalories] = useState<number | null>(null);
+  const [basal, setBasal] = useState<number | null>(null);  // Add state for basal
 
   return (
-    <UserContext.Provider value={{ user, setUser, calories, setCalories }}>
+    <UserContext.Provider value={{ user, setUser, calories, setCalories, basal, setBasal }}>
       {children}
     </UserContext.Provider>
   );

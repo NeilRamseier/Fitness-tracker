@@ -7,11 +7,12 @@ import { useUser } from "./UserContext";
 
 export default function HomeScreen() {
   const theme = useTheme();
-  const { user, setUser } = useUser();
+  const { user, setUser, basal  } = useUser();
   const [counter, setCounter] = React.useState<number | null>(null); // null, bis Daten geladen sind
   const [isPedometerAvailable, setIsPedometerAvailable] = React.useState('checking');
   const [stepCount, setStepCount] = React.useState(0);
   const { calories } = useUser();
+  const [localBasal, setLocalBasal] = React.useState<number | null>(basal);
 
   const MIN_COUNT = 0;
 
@@ -23,6 +24,13 @@ export default function HomeScreen() {
       setCounter(0.1); // Standardwert, falls kein Benutzer vorhanden
     }
   }, [user]); // Aktiviere, wenn sich currentUser ändert
+
+  // UseEffect to update basal whenever user.basal_metabolic_rate changes
+  React.useEffect(() => {
+    if (user && user.basal_metabolic_rate) {
+      setLocalBasal(user.basal_metabolic_rate);  // Update local basal state
+    }
+  }, [user]);
 
   // Pedometermessung initialisieren
   const subscribe = async () => {
@@ -48,11 +56,11 @@ export default function HomeScreen() {
   // Erhöhe das Gewicht
   const higherCounter = () => {
     if (counter !== null) {
-      const newWeight = Math.round((counter + 0.1) * 10) / 10;
+      const newWeight = Math.max(Math.round((counter + 0.1) * 10) / 10, 0.1);
       setCounter(newWeight);
       changeUserWeight(newWeight);
       if (user) {
-        setUser({ ...user, weight: newWeight }); // Update user context
+        setUser({ ...user, weight: newWeight }); 
       }
     }
   };
@@ -122,12 +130,12 @@ export default function HomeScreen() {
             color: theme.colors.secondary
           }}
         >
-          {user.basal_metabolic_rate !== null? `${Math.round((calories ?? 0) + (user.basal_metabolic_rate ?? 0))} kcal` : "0"}
+           {localBasal !== null ? `${Math.round((calories ?? 0) + (localBasal ?? 0))} kcal` : "0"}
         </Text>
         {/* Detailverbrauch */}
         <View>
           <Text style={styles.detailText}>Grundverbrauch</Text>
-          <Text style={styles.detailText}>{user.basal_metabolic_rate} kcal</Text>
+          <Text style={styles.detailText}>{localBasal !== null ? localBasal : "0"} kcal</Text>
           <Text style={styles.detailText}>Aktivitäten</Text>
           <Text style={styles.detailText}>{calories !== null ? `${calories.toFixed(2)} kcal` : "0"}</Text>
         </View>
