@@ -89,7 +89,7 @@ export default function ProfileScreen() {
     const parsedWeight = parseFloat(newWeight);
     if (!isNaN(parsedWeight)) {
       changeUserWeight(parsedWeight);
-      handleChange('weight', newWeight);
+      handleChange('weight', parsedWeight);
     }
   };
 
