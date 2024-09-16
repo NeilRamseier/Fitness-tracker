@@ -151,7 +151,7 @@ export default function HomeScreen() {
       {/* Anzeige des Benutzergewichts */}
       <View style={{ flexDirection: "row", alignItems: "flex-end" }}>
         <Text style={{ color: theme.colors.secondary, fontSize: 50, marginBottom: 5 }}>
-        {user?.weight !== undefined ? `${user.weight} kg` : "Nicht verfügbar"}
+        {user?.weight !== undefined ? `${user.weight}` : "Nicht verfügbar"}
         </Text>
         <Text style={{ color: theme.colors.secondary, fontSize: 15, marginBottom: 5, marginLeft: 5 }}>Kg</Text>
       </View>
