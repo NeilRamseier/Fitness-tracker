@@ -130,7 +130,7 @@ export default function HomeScreen() {
             color: theme.colors.secondary
           }}
         >
-           {localBasal !== null ? `${Math.round((calories ?? 0) + (localBasal ?? 0))} kcal` : "0"}
+           {localBasal !== null ? `${Math.round((calories ?? 0) + (localBasal ?? 0) + (stepCount * 0.04))} kcal` : "0"}
         </Text>
         {/* Detailverbrauch */}
         <View>
