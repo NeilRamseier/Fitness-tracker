@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { ScrollView, Text, View } from "react-native";
 import { Button, RadioButton, TextInput, useTheme } from "react-native-paper";
-import { createUser, currentUser, changeUserWeight, deleteAllUser } from '../App';
+import { createUser, currentUser, changeUserWeight, deleteAllUser, dropDB } from '../App';
 import { useUser } from "./UserContext";
 
 export default function ProfileScreen() {
   const theme = useTheme();
-  const { user, setUser } = useUser();
+  const { user, setUser, setBasal } = useUser();
   const [isFormValid, setIsFormValid] = useState(false);
   const [errors, setErrors] = useState({
     firstName: '',
@@ -17,9 +17,9 @@ export default function ProfileScreen() {
     gender: ''
   });
 
-  // Benutzer aus der DB laden und Zustand setzen
+
 useEffect(() => {
-  // Beispiel für eine Initialisierung, die dem User-Typ entspricht
+
   const defaultUser ={
     id: 0,
     first_name: '',
@@ -28,12 +28,12 @@ useEffect(() => {
     height: 0,
     age: 0,
     basal_metabolic_rate: 0,
-    gender: 'O', // Default-Geschlecht
+    gender: 'M', 
     IP: '',
     creation_date: ''
   };
 
-  // Überprüfen, ob `currentUser` existiert und valid ist
+
   const loadedUser = currentUser ? {
     id: currentUser.id ?? defaultUser.id,
     first_name: currentUser.first_name ?? defaultUser.first_name,
@@ -51,7 +51,7 @@ useEffect(() => {
 }, []);
 
 
-  // Validierung des Formulars bei Änderungen am Benutzer
+
   useEffect(() => {
     validateForm();
   }, [user]);
@@ -81,24 +81,26 @@ useEffect(() => {
   const handleChangeWeight = (newWeight: string) => {
     const parsedWeight = parseFloat(newWeight);
     if (!isNaN(parsedWeight)) {
-      changeUserWeight(parsedWeight); // Globale Funktion zum Ändern des Gewichts
-      handleChange('weight', newWeight); // Gewicht lokal im Zustand aktualisieren
+      changeUserWeight(parsedWeight);
+      handleChange('weight', newWeight);
     }
   };
 
+  const dropDatabase = async () => {
+    dropDB();
+  }
+
   const handleSave = async () => {
     if (!user) return;
-  
-    // Sicherstellen, dass alle erforderlichen Felder definiert sind
     const firstName = user.first_name || '';
     const lastName = user.last_name || '';
-    const weight = parseFloat(user.weight?.toString() || '0');
-    const height = parseInt(user.height?.toString() || '0', 10);
-    const age = parseInt(user.age?.toString() || '0', 10);
-    const gender = user.gender || 'O'; // Default-Wert für Geschlecht
+    const weight = parseFloat(user.weight?.toString() || '');
+    const height = parseInt(user.height?.toString() || '', 10);
+    const age = parseInt(user.age?.toString() || '', 10);
+    const gender = user.gender || 'O';
     const basalMetabolicRate = calculateBasal(gender, weight, age, height);
   
-    // Prüfen, ob alle Felder gültige Werte haben
+
     if (!firstName || !lastName || isNaN(weight) || isNaN(height) || isNaN(age) || !gender) {
       console.error('Einige Felder sind ungültig.');
       return;
@@ -113,6 +115,13 @@ useEffect(() => {
       basalMetabolicRate,
       gender
     );
+
+    setUser((prevUser) => ({
+      ...prevUser,
+      basal_metabolic_rate: basalMetabolicRate,
+    }));
+  
+    setBasal(basalMetabolicRate);  // Update basal in the context
   };
   
 
@@ -158,7 +167,7 @@ useEffect(() => {
           keyboardType="numeric"
           style={{ marginTop: 15, width: 182, height: 50 }}
           placeholder="Alter"
-          value={user?.age?.toString() || ""}
+          value={user?.age?.toString() === "0" ? "" : user?.age?.toString() || ""}
           onChangeText={(value) => handleChange('age', value)}
         />
 
@@ -167,7 +176,7 @@ useEffect(() => {
           keyboardType="numeric"
           style={{ marginTop: 15, width: 182, height: 50 }}
           placeholder="Gewicht"
-          value={user?.weight?.toString() || ""}
+          value={user?.weight?.toString() === "0" ? "" : user?.weight?.toString() || ""}
           onChangeText={(value) => handleChangeWeight(value)} // Auf Gewicht-Synchronisation reagieren
         />
 
@@ -176,7 +185,7 @@ useEffect(() => {
           keyboardType="numeric"
           style={{ marginTop: 15, width: 182, height: 50 }}
           placeholder="Grösse (cm)"
-          value={user?.height?.toString() || ""}
+          value={user?.height?.toString() === "0" ? "" : user?.height?.toString() || ""}
           onChangeText={(value) => handleChange('height', value)}
         />
 
@@ -206,10 +215,9 @@ useEffect(() => {
         >
           Speichern
         </Button>
-
-        <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 30 }}>
-          <Button onPress={handleDeleteAllUsers}>Alle Benutzer löschen</Button>
-        </View>
+        <Button onPress={dropDatabase} textColor={theme.colors.secondary}><Text>Drop DB!</Text></Button>
+        <Button onPress={handleDeleteAllUsers} textColor={theme.colors.secondary}>Alle Benutzer löschen</Button>
+        
       </View>
     </ScrollView>
   );
