@@ -79,7 +79,7 @@ export default function HomeScreen() {
 
   return (
     <View style={{ backgroundColor: theme.colors.primary, flex: 1, justifyContent: "flex-start", alignItems: "center" }}>
-      <Text style={{ color: theme.colors.secondary, fontSize: 35, marginTop: 50 }}>Hallo User!</Text>
+      <Text style={{ color: theme.colors.secondary, fontSize: 35, marginTop: 50 }}>Hallo {user.first_name}!</Text>
       
       {/* Schritte anzeigen */}
       <Surface
@@ -136,8 +136,8 @@ export default function HomeScreen() {
         <View>
           <Text style={styles.detailText}>Grundverbrauch</Text>
           <Text style={styles.detailText}>{localBasal !== null ? localBasal : "0"} kcal</Text>
-          <Text style={styles.detailText}>Aktivitäten</Text>
-          <Text style={styles.detailText}>{calories !== null ? `${calories.toFixed(2)} kcal` : "0"}</Text>
+          <Text style={styles.detailText}>Aktivitäten</Text> 
+          <Text style={styles.detailText}>{Math.round((calories ?? 0) + (stepCount * 0.04))} kcal</Text>
         </View>
       </Surface>
 
