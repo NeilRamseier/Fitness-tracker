@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { Alert, ScrollView, Text, View } from "react-native";
 import { Button, RadioButton, TextInput, useTheme } from "react-native-paper";
 import { createUser, currentUser, changeUserWeight, deleteAllUser, dropDB } from '../App';
 import { useUser } from "./UserContext";
- 
+
+type FormErrors = {
+  [key: string]: string;
+};
 export default function ProfileScreen() {
   const theme = useTheme();
   const { user, setUser, setBasal } = useUser();
@@ -121,7 +124,13 @@ useEffect(() => {
       basal_metabolic_rate: basalMetabolicRate,
     }));
   
-    setBasal(basalMetabolicRate);  // Update basal in the context
+    setBasal(basalMetabolicRate);
+
+    Alert.alert(
+      'Erfolg',
+      'Benutzer wurde erfolgreich gespeichert.',
+      [{ text: 'OK' }]
+    );
   };
   
 
