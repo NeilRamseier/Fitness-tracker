@@ -41,6 +41,12 @@ describe('<SportsUnitScreen />', () => {
     
     fireEvent.press(getByText('Speichern'));
 
+
+    const expectedCalories = 11.5 * 70 * (20 / 60);
+
+    expect(useUser().setCalories).toHaveBeenCalledWith(expectedCalories);
+
     expect(mockSetCalories).not.toHaveBeenCalled();
+
   });
 });

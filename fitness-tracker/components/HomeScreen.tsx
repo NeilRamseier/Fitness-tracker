@@ -8,7 +8,7 @@ import { useUser } from "./UserContext";
 export default function HomeScreen() {
   const theme = useTheme();
   const { user, setUser, basal  } = useUser();
-  const [counter, setCounter] = React.useState<number | null>(null); // null, bis Daten geladen sind
+  const [counter, setCounter] = React.useState<number | null>(null);
   const [isPedometerAvailable, setIsPedometerAvailable] = React.useState('checking');
   const [stepCount, setStepCount] = React.useState(0);
   const { calories } = useUser();
@@ -19,20 +19,18 @@ export default function HomeScreen() {
 
   React.useEffect(() => {
     if (user && user.weight) {
-      setCounter(user.weight); // Initialisiere Gewicht aus user
+      setCounter(user.weight);
     } else {
-      setCounter(0.1); // Standardwert, falls kein Benutzer vorhanden
-    }
-  }, [user]); // Aktiviere, wenn sich currentUser ändert
-
-  // UseEffect to update basal whenever user.basal_metabolic_rate changes
-  React.useEffect(() => {
-    if (user && user.basal_metabolic_rate) {
-      setLocalBasal(user.basal_metabolic_rate);  // Update local basal state
+      setCounter(0.1);
     }
   }, [user]);
 
-  // Pedometermessung initialisieren
+  React.useEffect(() => {
+    if (user && user.basal_metabolic_rate) {
+      setLocalBasal(user.basal_metabolic_rate); 
+    }
+  }, [user]);
+
   const subscribe = async () => {
     const isAvailable = await Pedometer.isAvailableAsync();
     setIsPedometerAvailable(String(isAvailable));
@@ -53,7 +51,6 @@ export default function HomeScreen() {
     const subscription = subscribe();
   }, []);
 
-  // Erhöhe das Gewicht
   const higherCounter = () => {
     console.log("Counter", counter, typeof counter);
     
@@ -68,14 +65,14 @@ export default function HomeScreen() {
     }
   };
 
-  // Verringere das Gewicht
+
   const lowerCounter = () => {
     if (counter !== null) {
       const newWeight = Math.max(Math.round((counter - 0.1) * 10) / 10, 0.1);
       setCounter(newWeight);
       changeUserWeight(newWeight);
       if (user) {
-        setUser({ ...user, weight: newWeight }); // Update user context
+        setUser({ ...user, weight: newWeight });
       }
     }
   };
@@ -84,7 +81,6 @@ export default function HomeScreen() {
     <View style={{ backgroundColor: theme.colors.primary, flex: 1, justifyContent: "flex-start", alignItems: "center" }}>
       <Text style={{ color: theme.colors.secondary, fontSize: 35, marginTop: 50 }}>Hallo {user.first_name}!</Text>
       
-      {/* Schritte anzeigen */}
       <Surface
         style={{
           justifyContent: "center",
@@ -109,7 +105,6 @@ export default function HomeScreen() {
         </Text>
       </Surface>
 
-      {/* Kalorienverbrauch anzeigen */}
       <Surface
         style={{
           display: "flex",
@@ -135,7 +130,6 @@ export default function HomeScreen() {
         >
            {Math.round((calories ?? 0) + (localBasal ?? 0) + (stepCount * 0.04))} kcal
         </Text>
-        {/* Detailverbrauch */}
         <View>
           <Text style={styles.detailText}>Grundverbrauch</Text>
           <Text style={styles.detailText}>{localBasal !== null ? localBasal : "0"} kcal</Text>
@@ -144,14 +138,17 @@ export default function HomeScreen() {
         </View>
       </Surface>
 
+
       {/* Gewichtsübersicht */}
       <TouchableOpacity onPress={higherCounter} testID="increase-button">
+
+      <TouchableOpacity onPress={higherCounter}>
+
         <View style={[styles.plusAndMinus, { borderColor: theme.colors.secondary }]}>
           <Icon source="plus" color={theme.colors.secondary} size={50} />
         </View>
       </TouchableOpacity>
 
-      {/* Anzeige des Benutzergewichts */}
       <View style={{ flexDirection: "row", alignItems: "flex-end" }}>
         <Text style={{ color: theme.colors.secondary, fontSize: 50, marginBottom: 5 }}>
         {user?.weight !== undefined ? `${user.weight}` : "Nicht verfügbar"}
